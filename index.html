@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stromy Store - Top Up Sosmed</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#0c0c0c;
+  color:#fff;
+}
+header{
+  background:#c40000;
+  padding:15px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+}
+.container{padding:15px;}
+.card{
+  background:#1a1a1a;
+  padding:15px;
+  border-radius:8px;
+  margin-bottom:12px;
+  cursor:pointer;
+  border:1px solid #333;
+}
+.card:hover{background:#222;}
+.hidden{display:none;}
+select{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#111;
+  color:#fff;
+  border:1px solid #333;
+  border-radius:6px;
+}
+.btn{
+  background:#c40000;
+  padding:12px;
+  text-align:center;
+  border-radius:6px;
+  margin-top:15px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.btn:hover{background:#ff0000;}
+.summary{
+  background:#111;
+  padding:12px;
+  border-radius:6px;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>STROMY STORE - TOP UP SOSMED</header>
+
+<div class="container">
+
+<div id="step1">
+<h3>Pilih Layanan</h3>
+<div class="card" onclick="chooseService('TikTok')">TikTok</div>
+<div class="card" onclick="chooseService('Instagram')">Instagram</div>
+<div class="card" onclick="chooseService('WhatsApp')">WhatsApp</div>
+<div class="card" onclick="chooseService('YouTube')">YouTube</div>
+</div>
+
+<div id="step2" class="hidden">
+<h3 id="serviceTitle"></h3>
+<select id="category" onchange="loadPackages()">
+<option value="">Pilih Kategori</option>
+</select>
+</div>
+
+<div id="step3" class="hidden">
+<select id="package" onchange="showSummary()">
+<option value="">Pilih Paket</option>
+</select>
+</div>
+
+<div id="step4" class="hidden">
+<div class="summary" id="summary"></div>
+<div class="btn" onclick="sendOrder()">OKE & ORDER VIA WHATSAPP</div>
+</div>
+
+</div>
+
+<script>
+const wa = "6285166986948";
+let service="", category="", pack="";
+
+const data = {
+TikTok:{
+Followers:{
+"100 Followers - Rp4.000":"",
+"200 Followers - Rp6.000":"",
+"300 Followers - Rp7.000":"",
+"400 Followers - Rp8.000":"",
+"500 Followers - Rp10.000":"",
+"600 Followers - Rp11.000":"",
+"700 Followers - Rp12.000":"",
+"800 Followers - Rp13.000":"",
+"900 Followers - Rp14.000":"",
+"1000 Followers - Rp15.000":""
+},
+Likes:{
+"1000 Likes - Rp4.000":"",
+"2000 Likes - Rp6.000":"",
+"3000 Likes - Rp8.000":"",
+"4000 Likes - Rp10.000":"",
+"5000 Likes - Rp12.000":"",
+"6000 Likes - Rp14.000":"",
+"7000 Likes - Rp16.000":"",
+"8000 Likes - Rp18.000":"",
+"9000 Likes - Rp20.000":"",
+"10000 Likes - Rp22.000":""
+},
+Views:{
+"4.000 Views - Rp2.000":"",
+"8.000 Views - Rp3.000":"",
+"12.000 Views - Rp4.000":"",
+"16.000 Views - Rp5.000":"",
+"20.000 Views - Rp6.000":"",
+"24.000 Views - Rp7.000":"",
+"28.000 Views - Rp8.000":"",
+"32.000 Views - Rp9.000":"",
+"36.000 Views - Rp10.000":"",
+"40.000 Views - Rp11.000":""
+}
+},
+
+Instagram:{
+Followers:{
+"100 Followers - Rp3.000":"",
+"200 Followers - Rp5.000":"",
+"300 Followers - Rp7.000":"",
+"400 Followers - Rp9.000":"",
+"500 Followers - Rp11.000":"",
+"600 Followers - Rp12.000":"",
+"700 Followers - Rp14.000":"",
+"800 Followers - Rp16.000":"",
+"900 Followers - Rp18.000":"",
+"1000 Followers - Rp20.000":""
+},
+Likes:{
+"500 Likes - Rp4.000":"",
+"1000 Likes - Rp7.000":"",
+"1500 Likes - Rp10.000":"",
+"2000 Likes - Rp13.000":"",
+"2500 Likes - Rp15.000":"",
+"3000 Likes - Rp17.000":"",
+"3500 Likes - Rp19.000":"",
+"4000 Likes - Rp21.000":"",
+"4500 Likes - Rp22.000":"",
+"5000 Likes - Rp23.000":""
+},
+Views:{
+"4.000 Views - Rp3.000":"",
+"8.000 Views - Rp4.000":"",
+"12.000 Views - Rp5.000":"",
+"16.000 Views - Rp6.000":"",
+"20.000 Views - Rp7.000":"",
+"24.000 Views - Rp8.000":"",
+"28.000 Views - Rp9.000":"",
+"32.000 Views - Rp10.000":"",
+"36.000 Views - Rp11.000":"",
+"40.000 Views - Rp12.000":""
+}
+},
+
+WhatsApp:{
+Member:{
+"50 Member - Rp3.000":"",
+"100 Member - Rp6.000":"",
+"150 Member - Rp9.000":"",
+"200 Member - Rp12.000":"",
+"250 Member - Rp15.000":"",
+"300 Member - Rp17.000":"",
+"350 Member - Rp19.000":"",
+"400 Member - Rp21.000":"",
+"450 Member - Rp22.000":"",
+"500 Member - Rp23.000":""
+}
+},
+
+YouTube:{
+Likes:{
+"500 Likes - Rp4.000":"",
+"1000 Likes - Rp7.000":"",
+"1500 Likes - Rp9.000":"",
+"2000 Likes - Rp11.000":"",
+"2500 Likes - Rp13.000":"",
+"3000 Likes - Rp15.000":"",
+"3500 Likes - Rp17.000":"",
+"4000 Likes - Rp19.000":"",
+"4500 Likes - Rp21.000":"",
+"5000 Likes - Rp23.000":""
+},
+Views:{
+"100 Views - Rp3.000":"",
+"200 Views - Rp6.000":"",
+"300 Views - Rp9.000":"",
+"400 Views - Rp11.000":"",
+"500 Views - Rp13.000":"",
+"600 Views - Rp15.000":"",
+"700 Views - Rp16.000":"",
+"800 Views - Rp18.000":"",
+"900 Views - Rp20.000":"",
+"1000 Views - Rp22.000":""
+}
+}
+};
+
+function chooseService(s){
+service=s;
+document.getElementById("step1").classList.add("hidden");
+document.getElementById("step2").classList.remove("hidden");
+document.getElementById("serviceTitle").innerText=s+" - Pilih Kategori";
+let c=document.getElementById("category");
+c.innerHTML='<option value="">Pilih Kategori</option>';
+Object.keys(data[s]).forEach(k=>c.innerHTML+=`<option>${k}</option>`);
+}
+
+function loadPackages(){
+category=document.getElementById("category").value;
+let p=document.getElementById("package");
+p.innerHTML='<option value="">Pilih Paket</option>';
+Object.keys(data[service][category]).forEach(k=>p.innerHTML+=`<option>${k}</option>`);
+document.getElementById("step3").classList.remove("hidden");
+}
+
+function showSummary(){
+pack=document.getElementById("package").value;
+document.getElementById("step4").classList.remove("hidden");
+document.getElementById("summary").innerHTML=
+`<b>Ringkasan Order</b><br>
+Layanan: ${service}<br>
+Kategori: ${category}<br>
+Paket: ${pack}`;
+}
+
+function sendOrder(){
+let text=`Halo Admin,%0ASaya ingin order:%0A
+Layanan: ${service}%0A
+Kategori: ${category}%0A
+Paket: ${pack}`;
+window.open(`https://wa.me/${wa}?text=${text}`);
+}
+</script>
+
+</body>
+</html>
