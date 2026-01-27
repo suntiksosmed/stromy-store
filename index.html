@@ -2,19 +2,19 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Suntik Sosmed</title>
+<title>SUNTIK SOSMED</title>
 
 <style>
 *{
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-family:Arial, sans-serif;
+  font-family:Arial, Helvetica, sans-serif;
 }
 
 body{
-  background:url("bg.jpg") no-repeat center center/cover;
   min-height:100vh;
+  background:url("bg.jpg") center/cover no-repeat;
 }
 
 .overlay{
@@ -25,33 +25,32 @@ body{
 
 .container{
   position:relative;
-  max-width:420px;
-  margin:60px auto;
-  background:rgba(0,0,0,0.78);
+  max-width:460px;
+  margin:40px auto;
+  background:rgba(0,0,0,0.8);
   padding:25px;
-  border-radius:14px;
+  border-radius:16px;
   color:#fff;
-  box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
 h1{
   text-align:center;
-  margin-bottom:6px;
+  margin-bottom:10px;
 }
 
-p{
+.subtitle{
   text-align:center;
   font-size:14px;
+  opacity:.9;
   margin-bottom:20px;
-  opacity:0.9;
 }
 
 select,button{
   width:100%;
   padding:12px;
-  margin-bottom:12px;
   border-radius:8px;
   border:none;
+  margin-bottom:12px;
   font-size:14px;
 }
 
@@ -67,7 +66,7 @@ button{
 }
 
 button:hover{
-  background:#1ebe5d;
+  background:#1eb85b;
 }
 </style>
 </head>
@@ -76,16 +75,16 @@ button:hover{
 <div class="overlay"></div>
 
 <div class="container">
-  <h1>Suntik Sosmed</h1>
-  <p>Pilih layanan & paket yang kamu inginkan</p>
+  <h1>SUNTIK SOSMED</h1>
+  <div class="subtitle">Pilih layanan dan paket yang kamu butuhkan</div>
 
   <select id="service" onchange="loadCategory()">
     <option value="">Pilih Layanan</option>
-    <option value="TikTok">TikTok</option>
-    <option value="Instagram">Instagram</option>
-    <option value="Facebook">Facebook</option>
-    <option value="Telegram">Telegram</option>
-    <option value="WhatsApp Channel">WhatsApp Channel</option>
+    <option>TikTok</option>
+    <option>Instagram</option>
+    <option>Facebook</option>
+    <option>Telegram</option>
+    <option>WhatsApp Channel</option>
   </select>
 
   <select id="category" onchange="loadPackage()">
@@ -105,16 +104,16 @@ const WA = "6285166986948";
 const data = {
   TikTok:{
     Follower:[
-      "100 Follower - Rp 4.000","200 Follower - Rp 6.000","300 Follower - Rp 7.000",
-      "400 Follower - Rp 8.000","500 Follower - Rp 10.000","600 Follower - Rp 11.000",
-      "700 Follower - Rp 12.000","800 Follower - Rp 13.000",
-      "900 Follower - Rp 14.000","1000 Follower - Rp 15.000"
+      "50 Follower - Rp 2.500","100 Follower - Rp 4.000","200 Follower - Rp 6.000",
+      "300 Follower - Rp 7.000","400 Follower - Rp 8.000","500 Follower - Rp 10.000",
+      "600 Follower - Rp 11.000","700 Follower - Rp 12.000","800 Follower - Rp 13.000",
+      "900 Follower - Rp 14.000","1.000 Follower - Rp 15.000"
     ],
     Likes:[
       "1000 Likes - Rp 4.000","2000 Likes - Rp 6.000","3000 Likes - Rp 8.000",
       "4000 Likes - Rp 10.000","5000 Likes - Rp 12.000","6000 Likes - Rp 14.000",
-      "7000 Likes - Rp 16.000","8000 Likes - Rp 18.000",
-      "9000 Likes - Rp 20.000","10000 Likes - Rp 22.000"
+      "7000 Likes - Rp 16.000","8000 Likes - Rp 18.000","9000 Likes - Rp 20.000",
+      "10000 Likes - Rp 22.000"
     ],
     Views:[
       "4.000 View - Rp 2.000","8.000 View - Rp 3.000","12.000 View - Rp 4.000",
@@ -132,10 +131,10 @@ const data = {
 
   Instagram:{
     Follower:[
-      "100 Follower - Rp 3.000","200 Follower - Rp 5.000","300 Follower - Rp 7.000",
-      "400 Follower - Rp 9.000","500 Follower - Rp 11.000","600 Follower - Rp 12.000",
-      "700 Follower - Rp 14.000","800 Follower - Rp 16.000",
-      "900 Follower - Rp 18.000","1000 Follower - Rp 20.000"
+      "50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 5.000",
+      "300 Follower - Rp 7.000","400 Follower - Rp 9.000","500 Follower - Rp 11.000",
+      "600 Follower - Rp 12.000","700 Follower - Rp 14.000","800 Follower - Rp 16.000",
+      "900 Follower - Rp 18.000","1.000 Follower - Rp 20.000"
     ],
     Likes:[
       "500 Likes - Rp 4.000","1000 Likes - Rp 7.000","1500 Likes - Rp 10.000",
@@ -159,10 +158,10 @@ const data = {
 
   Facebook:{
     Follower:[
-      "100 Follower - Rp 3.000","200 Follower - Rp 4.000","300 Follower - Rp 5.000",
-      "400 Follower - Rp 6.000","500 Follower - Rp 7.000","600 Follower - Rp 8.000",
-      "700 Follower - Rp 9.000","800 Follower - Rp 10.000",
-      "900 Follower - Rp 11.000","1000 Follower - Rp 12.000"
+      "50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 4.000",
+      "300 Follower - Rp 5.000","400 Follower - Rp 6.000","500 Follower - Rp 7.000",
+      "600 Follower - Rp 8.000","700 Follower - Rp 9.000","800 Follower - Rp 10.000",
+      "900 Follower - Rp 11.000","1.000 Follower - Rp 12.000"
     ],
     Likes:[
       "100 Likes - Rp 2.000","200 Likes - Rp 3.000","300 Likes - Rp 4.000",
@@ -183,28 +182,28 @@ const data = {
       "100 Member - Rp 1.500","200 Member - Rp 3.000","300 Member - Rp 4.000",
       "400 Member - Rp 5.000","500 Member - Rp 6.000","600 Member - Rp 7.000",
       "700 Member - Rp 8.000","800 Member - Rp 9.000",
-      "900 Member - Rp 10.000","1000 Member - Rp 11.000"
+      "900 Member - Rp 10.000","1.000 Member - Rp 11.000"
     ],
     "Refill 7 Hari":[
       "100 Member - Rp 2.500","200 Member - Rp 3.500","300 Member - Rp 4.500",
       "400 Member - Rp 5.500","500 Member - Rp 6.500","600 Member - Rp 7.500",
       "700 Member - Rp 8.500","800 Member - Rp 9.500",
-      "900 Member - Rp 10.500","1000 Member - Rp 11.500"
+      "900 Member - Rp 10.500","1.000 Member - Rp 11.500"
     ],
     "Refill 30 Hari":[
       "100 Member - Rp 3.500","200 Member - Rp 5.000","300 Member - Rp 6.000",
       "400 Member - Rp 7.000","500 Member - Rp 8.000","600 Member - Rp 9.000",
       "700 Member - Rp 10.000","800 Member - Rp 11.000",
-      "900 Member - Rp 12.000","1000 Member - Rp 13.000"
+      "900 Member - Rp 12.000","1.000 Member - Rp 13.000"
     ]
   },
 
   "WhatsApp Channel":{
-    Member:[
-      "50 Member - Rp 3.000","100 Member - Rp 6.000","150 Member - Rp 9.000",
-      "200 Member - Rp 12.000","250 Member - Rp 15.000","300 Member - Rp 17.000",
-      "350 Member - Rp 19.000","400 Member - Rp 21.000",
-      "450 Member - Rp 22.000","500 Member - Rp 23.000"
+    "Pengikut / Member":[
+      "50 Pengikut - Rp 3.000","100 Pengikut - Rp 6.000","150 Pengikut - Rp 9.000",
+      "200 Pengikut - Rp 12.000","250 Pengikut - Rp 15.000","300 Pengikut - Rp 17.000",
+      "350 Pengikut - Rp 19.000","400 Pengikut - Rp 21.000",
+      "450 Pengikut - Rp 22.000","500 Pengikut - Rp 23.000"
     ]
   }
 };
@@ -218,7 +217,7 @@ function loadCategory(){
   pack.innerHTML="<option>Pilih Paket</option>";
   if(!service.value) return;
   Object.keys(data[service.value]).forEach(c=>{
-    category.innerHTML+=`<option value="${c}">${c}</option>`;
+    category.innerHTML+=`<option>${c}</option>`;
   });
 }
 
@@ -226,21 +225,23 @@ function loadPackage(){
   pack.innerHTML="<option>Pilih Paket</option>";
   if(!category.value) return;
   data[service.value][category.value].forEach(p=>{
-    pack.innerHTML+=`<option value="${p}">${p}</option>`;
+    pack.innerHTML+=`<option>${p}</option>`;
   });
 }
 
 function order(){
-  if(!service.value||!category.value||!pack.value)
-    return alert("Lengkapi pilihan dulu");
+  if(!service.value||!category.value||!pack.value){
+    alert("Lengkapi pilihan dulu");
+    return;
+  }
 
-  const text=`Permisi Min saya mau order
+  const text=`Min saya mau order
 Layanan : ${service.value}
 Kategori : ${category.value}
 Paket : ${pack.value}
 
-Pembayaran : QRIS atau Nomor Pembayaran
-(Hapus QRIS jika membayar menggunakan Nomor Pembayaran, atau sebaliknya)`;
+Pembayaran QRIS atau NOPE(Nomor pembayaran)
+(Hapus Kata QRIS jika membayar menggunakan NOPE atau Sebaliknya)`;
 
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
