@@ -8,6 +8,7 @@
 *{
   margin:0;
   padding:0;
+  box-sizing:border-box;
   font-family:Arial, sans-serif;
 }
 
@@ -26,21 +27,23 @@ body{
   position:relative;
   max-width:420px;
   margin:60px auto;
-  background:rgba(0,0,0,0.75);
+  background:rgba(0,0,0,0.78);
   padding:25px;
-  border-radius:12px;
+  border-radius:14px;
   color:#fff;
+  box-shadow:0 10px 30px rgba(0,0,0,0.6);
 }
 
 h1{
   text-align:center;
-  margin-bottom:8px;
+  margin-bottom:6px;
 }
 
 p{
   text-align:center;
   font-size:14px;
   margin-bottom:20px;
+  opacity:0.9;
 }
 
 select,button{
@@ -50,6 +53,10 @@ select,button{
   border-radius:8px;
   border:none;
   font-size:14px;
+}
+
+select{
+  background:#fff;
 }
 
 button{
@@ -70,7 +77,7 @@ button:hover{
 
 <div class="container">
   <h1>Suntik Sosmed</h1>
-  <p>Pilih layanan & paket</p>
+  <p>Pilih layanan & paket yang kamu inginkan</p>
 
   <select id="service" onchange="loadCategory()">
     <option value="">Pilih Layanan</option>
@@ -78,7 +85,7 @@ button:hover{
     <option value="Instagram">Instagram</option>
     <option value="Facebook">Facebook</option>
     <option value="Telegram">Telegram</option>
-    <option value="WhatsApp">WhatsApp Channel</option>
+    <option value="WhatsApp Channel">WhatsApp Channel</option>
   </select>
 
   <select id="category" onchange="loadPackage()">
@@ -100,26 +107,26 @@ const data = {
     Follower:[
       "100 Follower - Rp 4.000","200 Follower - Rp 6.000","300 Follower - Rp 7.000",
       "400 Follower - Rp 8.000","500 Follower - Rp 10.000","600 Follower - Rp 11.000",
-      "700 Follower - Rp 12.000","800 Follower - Rp 13.000","900 Follower - Rp 14.000",
-      "1000 Follower - Rp 15.000"
+      "700 Follower - Rp 12.000","800 Follower - Rp 13.000",
+      "900 Follower - Rp 14.000","1000 Follower - Rp 15.000"
     ],
     Likes:[
       "1000 Likes - Rp 4.000","2000 Likes - Rp 6.000","3000 Likes - Rp 8.000",
       "4000 Likes - Rp 10.000","5000 Likes - Rp 12.000","6000 Likes - Rp 14.000",
-      "7000 Likes - Rp 16.000","8000 Likes - Rp 18.000","9000 Likes - Rp 20.000",
-      "10000 Likes - Rp 22.000"
+      "7000 Likes - Rp 16.000","8000 Likes - Rp 18.000",
+      "9000 Likes - Rp 20.000","10000 Likes - Rp 22.000"
     ],
     Views:[
       "4.000 View - Rp 2.000","8.000 View - Rp 3.000","12.000 View - Rp 4.000",
       "16.000 View - Rp 5.000","20.000 View - Rp 6.000","24.000 View - Rp 7.000",
-      "28.000 View - Rp 8.000","32.000 View - Rp 9.000","36.000 View - Rp 10.000",
-      "40.000 View - Rp 11.000"
+      "28.000 View - Rp 8.000","32.000 View - Rp 9.000",
+      "36.000 View - Rp 10.000","40.000 View - Rp 11.000"
     ],
     Komentar:[
       "40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000",
       "160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000",
-      "280 Komentar - Rp 8.000","320 Komentar - Rp 9.000","360 Komentar - Rp 10.000",
-      "400 Komentar - Rp 11.000"
+      "280 Komentar - Rp 8.000","320 Komentar - Rp 9.000",
+      "360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"
     ]
   },
 
@@ -127,26 +134,26 @@ const data = {
     Follower:[
       "100 Follower - Rp 3.000","200 Follower - Rp 5.000","300 Follower - Rp 7.000",
       "400 Follower - Rp 9.000","500 Follower - Rp 11.000","600 Follower - Rp 12.000",
-      "700 Follower - Rp 14.000","800 Follower - Rp 16.000","900 Follower - Rp 18.000",
-      "1000 Follower - Rp 20.000"
+      "700 Follower - Rp 14.000","800 Follower - Rp 16.000",
+      "900 Follower - Rp 18.000","1000 Follower - Rp 20.000"
     ],
     Likes:[
       "500 Likes - Rp 4.000","1000 Likes - Rp 7.000","1500 Likes - Rp 10.000",
       "2000 Likes - Rp 13.000","2500 Likes - Rp 15.000","3000 Likes - Rp 17.000",
-      "3500 Likes - Rp 19.000","4000 Likes - Rp 21.000","4500 Likes - Rp 22.000",
-      "5000 Likes - Rp 23.000"
+      "3500 Likes - Rp 19.000","4000 Likes - Rp 21.000",
+      "4500 Likes - Rp 22.000","5000 Likes - Rp 23.000"
     ],
     Views:[
       "4.000 View - Rp 3.000","8.000 View - Rp 4.000","12.000 View - Rp 5.000",
       "16.000 View - Rp 6.000","20.000 View - Rp 7.000","24.000 View - Rp 8.000",
-      "28.000 View - Rp 9.000","32.000 View - Rp 10.000","36.000 View - Rp 11.000",
-      "40.000 View - Rp 12.000"
+      "28.000 View - Rp 9.000","32.000 View - Rp 10.000",
+      "36.000 View - Rp 11.000","40.000 View - Rp 12.000"
     ],
     Komentar:[
       "40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000",
       "160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000",
-      "280 Komentar - Rp 8.000","320 Komentar - Rp 9.000","360 Komentar - Rp 10.000",
-      "400 Komentar - Rp 11.000"
+      "280 Komentar - Rp 8.000","320 Komentar - Rp 9.000",
+      "360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"
     ]
   },
 
@@ -154,20 +161,20 @@ const data = {
     Follower:[
       "100 Follower - Rp 3.000","200 Follower - Rp 4.000","300 Follower - Rp 5.000",
       "400 Follower - Rp 6.000","500 Follower - Rp 7.000","600 Follower - Rp 8.000",
-      "700 Follower - Rp 9.000","800 Follower - Rp 10.000","900 Follower - Rp 11.000",
-      "1000 Follower - Rp 12.000"
+      "700 Follower - Rp 9.000","800 Follower - Rp 10.000",
+      "900 Follower - Rp 11.000","1000 Follower - Rp 12.000"
     ],
     Likes:[
       "100 Likes - Rp 2.000","200 Likes - Rp 3.000","300 Likes - Rp 4.000",
       "400 Likes - Rp 5.000","500 Likes - Rp 6.000","600 Likes - Rp 7.000",
-      "700 Likes - Rp 8.000","800 Likes - Rp 9.000","900 Likes - Rp 10.000",
-      "1000 Likes - Rp 11.000"
+      "700 Likes - Rp 8.000","800 Likes - Rp 9.000",
+      "900 Likes - Rp 10.000","1000 Likes - Rp 11.000"
     ],
     Views:[
       "500 Views - Rp 3.500","1000 Views - Rp 4.500","1500 Views - Rp 5.500",
       "2000 Views - Rp 6.500","2500 Views - Rp 7.500","3000 Views - Rp 8.500",
-      "3500 Views - Rp 9.500","4000 Views - Rp 10.500","4500 Views - Rp 11.500",
-      "5000 Views - Rp 12.500"
+      "3500 Views - Rp 9.500","4000 Views - Rp 10.500",
+      "4500 Views - Rp 11.500","5000 Views - Rp 12.500"
     ]
   },
 
@@ -175,29 +182,29 @@ const data = {
     "No Refill":[
       "100 Member - Rp 1.500","200 Member - Rp 3.000","300 Member - Rp 4.000",
       "400 Member - Rp 5.000","500 Member - Rp 6.000","600 Member - Rp 7.000",
-      "700 Member - Rp 8.000","800 Member - Rp 9.000","900 Member - Rp 10.000",
-      "1000 Member - Rp 11.000"
+      "700 Member - Rp 8.000","800 Member - Rp 9.000",
+      "900 Member - Rp 10.000","1000 Member - Rp 11.000"
     ],
     "Refill 7 Hari":[
       "100 Member - Rp 2.500","200 Member - Rp 3.500","300 Member - Rp 4.500",
       "400 Member - Rp 5.500","500 Member - Rp 6.500","600 Member - Rp 7.500",
-      "700 Member - Rp 8.500","800 Member - Rp 9.500","900 Member - Rp 10.500",
-      "1000 Member - Rp 11.500"
+      "700 Member - Rp 8.500","800 Member - Rp 9.500",
+      "900 Member - Rp 10.500","1000 Member - Rp 11.500"
     ],
     "Refill 30 Hari":[
       "100 Member - Rp 3.500","200 Member - Rp 5.000","300 Member - Rp 6.000",
       "400 Member - Rp 7.000","500 Member - Rp 8.000","600 Member - Rp 9.000",
-      "700 Member - Rp 10.000","800 Member - Rp 11.000","900 Member - Rp 12.000",
-      "1000 Member - Rp 13.000"
+      "700 Member - Rp 10.000","800 Member - Rp 11.000",
+      "900 Member - Rp 12.000","1000 Member - Rp 13.000"
     ]
   },
 
-  WhatsApp:{
+  "WhatsApp Channel":{
     Member:[
       "50 Member - Rp 3.000","100 Member - Rp 6.000","150 Member - Rp 9.000",
       "200 Member - Rp 12.000","250 Member - Rp 15.000","300 Member - Rp 17.000",
-      "350 Member - Rp 19.000","400 Member - Rp 21.000","450 Member - Rp 22.000",
-      "500 Member - Rp 23.000"
+      "350 Member - Rp 19.000","400 Member - Rp 21.000",
+      "450 Member - Rp 22.000","500 Member - Rp 23.000"
     ]
   }
 };
@@ -228,9 +235,12 @@ function order(){
     return alert("Lengkapi pilihan dulu");
 
   const text=`Permisi Min saya mau order
-Layanan ${service.value}
-Kategori ${category.value}
-Paket ${pack.value}`;
+Layanan : ${service.value}
+Kategori : ${category.value}
+Paket : ${pack.value}
+
+Pembayaran : QRIS atau Nomor Pembayaran
+(Hapus QRIS jika membayar menggunakan Nomor Pembayaran, atau sebaliknya)`;
 
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
