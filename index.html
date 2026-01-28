@@ -2,260 +2,163 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SUNTIK SOSMED STROMY</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUNTIK SOSMED STROMY</title>
 
 <style>
-*{
-  box-sizing:border-box;
-  font-family: 'Segoe UI', sans-serif;
-}
 body{
   margin:0;
-  min-height:100vh;
+  font-family:Arial, sans-serif;
   background:
-    linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)),
-    url("https://images.unsplash.com/photo-1611162617474-5b21e879e113");
-  /* ⬆️ GANTI LINK INI DENGAN FOTO POSTER KAMU NANTI */
-  background-size:cover;
-  background-position:center;
-  color:#fff;
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
+    url('background.jpg') center/cover fixed;
+  color:white;
 }
 
 .container{
-  max-width:1100px;
+  max-width:420px;
   margin:auto;
   padding:20px;
 }
 
-header{
+h1{
   text-align:center;
-  margin-bottom:30px;
-}
-header h1{
-  font-size:36px;
-  margin:0;
-  letter-spacing:2px;
-}
-header p{
-  opacity:.85;
+  margin-bottom:5px;
 }
 
-/* CARD */
+.subtitle{
+  text-align:center;
+  opacity:.8;
+  margin-bottom:20px;
+}
+
 .card{
   background:rgba(255,255,255,.08);
-  backdrop-filter: blur(10px);
+  backdrop-filter:blur(6px);
   border-radius:15px;
-  padding:20px;
-  margin-bottom:20px;
+  padding:15px;
+  margin-bottom:15px;
   transition:.3s;
 }
+
 .card:hover{
-  transform:translateY(-5px);
-  background:rgba(255,255,255,.12);
+  transform:scale(1.03);
 }
 
-/* FORM */
-label{
-  display:block;
-  margin-top:15px;
-  font-weight:600;
+.select{
+  padding:12px;
+  border-radius:10px;
+  background:rgba(255,255,255,.15);
+  margin-top:10px;
+  cursor:pointer;
+  transition:.3s;
 }
-select, input{
+
+.select:hover{
+  background:rgba(255,255,255,.25);
+}
+
+.hidden{display:none}
+
+input{
   width:100%;
   padding:12px;
-  margin-top:8px;
   border-radius:10px;
   border:none;
-  outline:none;
-  font-size:14px;
+  margin-top:10px;
 }
 
 button{
   width:100%;
-  padding:15px;
-  margin-top:25px;
+  padding:14px;
   border:none;
   border-radius:12px;
-  background:#25D366;
-  color:#000;
-  font-size:16px;
+  background:#00ffcc;
   font-weight:bold;
+  margin-top:15px;
   cursor:pointer;
-  transition:.3s;
-}
-button:hover{
-  transform:scale(1.03);
-  box-shadow:0 0 15px #25D366;
 }
 
-footer{
-  text-align:center;
-  margin-top:30px;
-  opacity:.7;
-  font-size:13px;
-}
+button:hover{background:#00ddb0}
 </style>
 </head>
 
 <body>
-
 <div class="container">
-<header>
-  <h1>SUNTIK SOSMED STROMY</h1>
-  <p>Layanan Suntik Sosial Media • Cepat • Aman • Terpercaya</p>
-</header>
 
+<h1>SUNTIK SOSMED STROMY</h1>
+<div class="subtitle">Layanan Sosial Media Profesional</div>
+
+<!-- LAYANAN -->
 <div class="card">
-  <label>Layanan</label>
-  <select id="layanan" onchange="updateKategori()">
-    <option value="">-- Pilih Layanan --</option>
-    <option>TikTok</option>
-    <option>Instagram</option>
-    <option>Facebook</option>
-    <option>Telegram</option>
-    <option>WhatsApp</option>
-  </select>
-
-  <label>Kategori</label>
-  <select id="kategori" onchange="updatePaket()">
-    <option value="">-- Pilih Kategori --</option>
-  </select>
-
-  <label>Paket</label>
-  <select id="paket">
-    <option value="">-- Pilih Paket --</option>
-  </select>
-
-  <label>Link Akun / Video / Channel</label>
-  <input type="text" id="link" placeholder="Masukkan link tautan di sini">
-
-  <button onclick="order()">ORDER VIA WHATSAPP</button>
+  <div class="select" onclick="showKategori('TikTok')">📱 TikTok</div>
+  <div class="select" onclick="showKategori('Instagram')">📸 Instagram</div>
+  <div class="select" onclick="showKategori('Facebook')">📘 Facebook</div>
+  <div class="select" onclick="showKategori('WhatsApp')">💬 WhatsApp</div>
+  <div class="select" onclick="showKategori('Telegram')">✈️ Telegram</div>
 </div>
 
-<footer>
-© 2026 • SUNTIK SOSMED STROMY
-</footer>
+<!-- KATEGORI -->
+<div class="card hidden" id="kategoriBox">
+  <h3 id="layananTitle"></h3>
+  <div class="select" onclick="showPaket('Follower')">Follower</div>
+  <div class="select" onclick="showPaket('Like')">Like</div>
+  <div class="select" onclick="showPaket('View')">View</div>
+  <div class="select" onclick="showPaket('Komentar')">Komentar</div>
+  <div class="select" onclick="showPaket('Member')">Pengikut / Member</div>
+</div>
+
+<!-- PAKET -->
+<div class="card hidden" id="paketBox">
+  <h3 id="kategoriTitle"></h3>
+  <div class="select" onclick="pilihPaket('1000 - Rp 15.000')">1000 - Rp 15.000</div>
+  <div class="select" onclick="pilihPaket('2000 - Rp 30.000')">2000 - Rp 30.000</div>
+  <div class="select" onclick="pilihPaket('5000 - Rp 75.000')">5000 - Rp 75.000</div>
+</div>
+
+<!-- LINK -->
+<div class="card hidden" id="linkBox">
+  <h3>Masukkan Link</h3>
+  <input id="linkInput" placeholder="https://..." />
+</div>
+
+<button class="hidden" id="orderBtn" onclick="orderWA()">ORDER VIA WHATSAPP</button>
+
 </div>
 
 <script>
-const data = {
-  "TikTok":{
-    "Follower":{
-      "50 Follower - Rp 2.500":2500,
-      "100 Follower - Rp 4.000":4000,
-      "200 Follower - Rp 6.000":6000,
-      "300 Follower - Rp 7.000":7000,
-      "400 Follower - Rp 8.000":8000,
-      "500 Follower - Rp 10.000":10000,
-      "1000 Follower - Rp 15.000":15000
-    },
-    "Like":{
-      "1000 Likes - Rp 4.000":4000,
-      "5000 Likes - Rp 12.000":12000
-    },
-    "View":{
-      "4000 View - Rp 2.000":2000,
-      "40000 View - Rp 11.000":11000
-    },
-    "Komentar":{
-      "40 Komentar - Rp 2.000":2000,
-      "400 Komentar - Rp 11.000":11000
-    }
-  },
+let layanan="", kategori="", paket="";
 
-  "Instagram":{
-    "Follower":{
-      "50 Follower - Rp 2.000":2000,
-      "1000 Follower - Rp 20.000":20000
-    },
-    "Like":{
-      "500 Likes - Rp 4.000":4000,
-      "5000 Likes - Rp 23.000":23000
-    },
-    "View":{
-      "4000 View - Rp 3.000":3000,
-      "40000 View - Rp 12.000":12000
-    },
-    "Komentar":{
-      "40 Komentar - Rp 2.000":2000,
-      "400 Komentar - Rp 11.000":11000
-    }
-  },
-
-  "Facebook":{
-    "Follower":{
-      "50 Follower - Rp 2.000":2000,
-      "1000 Follower - Rp 12.000":12000
-    },
-    "Like":{
-      "100 Likes - Rp 2.000":2000,
-      "1000 Likes - Rp 11.000":11000
-    },
-    "View":{
-      "500 Views - Rp 3.500":3500,
-      "5000 Views - Rp 12.500":12500
-    }
-  },
-
-  "Telegram":{
-    "No Refill":{
-      "100 Member - Rp 1.500":1500,
-      "1000 Member - Rp 11.000":11000
-    },
-    "Refill 7 Hari":{
-      "100 Member - Rp 2.500":2500,
-      "1000 Member - Rp 11.500":11500
-    },
-    "Refill 30 Hari":{
-      "100 Member - Rp 3.500":3500,
-      "1000 Member - Rp 13.000":13000
-    }
-  },
-
-  "WhatsApp":{
-    "Pengikut/Member":{
-      "50 Member - Rp 3.000":3000,
-      "500 Member - Rp 23.000":23000
-    }
-  }
-};
-
-function updateKategori(){
-  kategori.innerHTML='<option value="">-- Pilih Kategori --</option>';
-  paket.innerHTML='<option value="">-- Pilih Paket --</option>';
-  if(!layanan.value) return;
-  Object.keys(data[layanan.value]).forEach(k=>{
-    kategori.innerHTML+=`<option>${k}</option>`;
-  });
+function showKategori(l){
+  layanan=l;
+  document.getElementById("kategoriBox").classList.remove("hidden");
+  document.getElementById("layananTitle").innerText="Layanan: "+l;
 }
 
-function updatePaket(){
-  paket.innerHTML='<option value="">-- Pilih Paket --</option>';
-  if(!kategori.value) return;
-  Object.keys(data[layanan.value][kategori.value]).forEach(p=>{
-    paket.innerHTML+=`<option>${p}</option>`;
-  });
+function showPaket(k){
+  kategori=k;
+  document.getElementById("paketBox").classList.remove("hidden");
+  document.getElementById("kategoriTitle").innerText="Kategori: "+k;
 }
 
-function order(){
-  if(!layanan.value || !kategori.value || !paket.value || !link.value){
-    alert("Lengkapi semua data dulu ya");
-    return;
-  }
+function pilihPaket(p){
+  paket=p;
+  document.getElementById("linkBox").classList.remove("hidden");
+  document.getElementById("orderBtn").classList.remove("hidden");
+}
 
-  const text = `
-Min saya mau order
-Layanan : ${layanan.value}
-Kategori : ${kategori.value}
-Paket : ${paket.value}
-Link : ${link.value}
+function orderWA(){
+  let link=document.getElementById("linkInput").value;
+  let text=`Min saya mau order
+Layanan: ${layanan}
+Kategori: ${kategori}
+Paket: ${paket}
+Link: ${link}
 
 Pembayaran QRIS atau NOPE
-(Hapus Kata QRIS jika membayar menggunakan NOPE atau Sebaliknya)
-`;
+(Hapus Kata QRIS jika membayar menggunakan NOPE atau Sebaliknya)`;
 
-  const url = "https://wa.me/6285166986948?text="+encodeURIComponent(text);
+  let url="https://wa.me/6285166986948?text="+encodeURIComponent(text);
   window.open(url,"_blank");
 }
 </script>
