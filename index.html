@@ -6,80 +6,85 @@
 <title>SUNTIK SOSMED STROMY</title>
 
 <style>
+*{box-sizing:border-box}
 body{
   margin:0;
-  font-family:Arial, sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
   background:
-    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.65)),
-    url('background.jpg') center/cover fixed;
-  color:white;
+    linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+    url("background.png") center/cover fixed;
+  color:#fff;
 }
 
 .container{
-  max-width:420px;
+  max-width:480px;
   margin:auto;
   padding:20px;
 }
 
-h1{
-  text-align:center;
-  margin-bottom:5px;
-}
-
-.subtitle{
-  text-align:center;
-  opacity:.8;
-  margin-bottom:20px;
-}
+h1{text-align:center;margin:10px 0 0}
+.intro{text-align:center;opacity:.85;margin-bottom:20px}
 
 .card{
-  background:rgba(255,255,255,.08);
-  backdrop-filter:blur(6px);
-  border-radius:15px;
+  background:rgba(255,255,255,.1);
+  border-radius:18px;
   padding:15px;
   margin-bottom:15px;
-  transition:.3s;
 }
 
-.card:hover{
-  transform:scale(1.03);
-}
-
-.select{
-  padding:12px;
-  border-radius:10px;
-  background:rgba(255,255,255,.15);
+.option{
+  background:rgba(255,255,255,.18);
+  padding:14px;
+  border-radius:14px;
   margin-top:10px;
   cursor:pointer;
-  transition:.3s;
+  transition:.25s;
+  text-align:center;
 }
-
-.select:hover{
-  background:rgba(255,255,255,.25);
+.option:hover{
+  transform:scale(1.05);
+  background:rgba(255,255,255,.3);
 }
 
 .hidden{display:none}
 
-input{
+select,input{
   width:100%;
-  padding:12px;
-  border-radius:10px;
+  padding:14px;
+  border-radius:14px;
   border:none;
   margin-top:10px;
 }
 
 button{
   width:100%;
-  padding:14px;
+  padding:16px;
   border:none;
-  border-radius:12px;
+  border-radius:16px;
   background:#00ffcc;
   font-weight:bold;
+  font-size:16px;
   margin-top:15px;
-  cursor:pointer;
 }
 
-button:hover{background:#00ddb0}
+.alert{
+  color:#ff4d4d;
+  font-size:14px;
+  margin-top:8px;
+}
+
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.popup img{
+  max-width:80%;
+  border-radius:14px;
+}
 </style>
 </head>
 
@@ -87,69 +92,118 @@ button:hover{background:#00ddb0}
 <div class="container">
 
 <h1>SUNTIK SOSMED STROMY</h1>
-<div class="subtitle">Layanan Sosial Media Profesional</div>
+<div class="intro">Layanan Suntik Sosial Media Profesional</div>
 
 <!-- LAYANAN -->
 <div class="card">
-  <div class="select" onclick="showKategori('TikTok')">📱 TikTok</div>
-  <div class="select" onclick="showKategori('Instagram')">📸 Instagram</div>
-  <div class="select" onclick="showKategori('Facebook')">📘 Facebook</div>
-  <div class="select" onclick="showKategori('WhatsApp')">💬 WhatsApp</div>
-  <div class="select" onclick="showKategori('Telegram')">✈️ Telegram</div>
+  <div class="option" onclick="pilihLayanan('TikTok')">📱 TikTok</div>
+  <div class="option" onclick="pilihLayanan('Instagram')">📸 Instagram</div>
+  <div class="option" onclick="pilihLayanan('Facebook')">📘 Facebook</div>
+  <div class="option" onclick="pilihLayanan('WhatsApp')">💬 WhatsApp</div>
+  <div class="option" onclick="pilihLayanan('Telegram')">✈️ Telegram</div>
 </div>
 
 <!-- KATEGORI -->
 <div class="card hidden" id="kategoriBox">
-  <h3 id="layananTitle"></h3>
-  <div class="select" onclick="showPaket('Follower')">Follower</div>
-  <div class="select" onclick="showPaket('Like')">Like</div>
-  <div class="select" onclick="showPaket('View')">View</div>
-  <div class="select" onclick="showPaket('Komentar')">Komentar</div>
-  <div class="select" onclick="showPaket('Member')">Pengikut / Member</div>
+  <b id="layananText"></b>
+  <div class="option" onclick="pilihKategori('Follower')">Follower</div>
+  <div class="option" onclick="pilihKategori('Like')">Like</div>
+  <div class="option" onclick="pilihKategori('View')">View</div>
+  <div class="option" onclick="pilihKategori('Komentar')">Komentar</div>
+  <div class="option" onclick="pilihKategori('Member')">Pengikut / Member</div>
 </div>
 
 <!-- PAKET -->
 <div class="card hidden" id="paketBox">
-  <h3 id="kategoriTitle"></h3>
-  <div class="select" onclick="pilihPaket('1000 - Rp 15.000')">1000 - Rp 15.000</div>
-  <div class="select" onclick="pilihPaket('2000 - Rp 30.000')">2000 - Rp 30.000</div>
-  <div class="select" onclick="pilihPaket('5000 - Rp 75.000')">5000 - Rp 75.000</div>
+  <b id="kategoriText"></b>
+  <select id="paket"></select>
 </div>
 
 <!-- LINK -->
 <div class="card hidden" id="linkBox">
-  <h3>Masukkan Link</h3>
-  <input id="linkInput" placeholder="https://..." />
+  <b>Link Akun / Channel / Video</b>
+  <input id="link" placeholder="https://..." />
+  <div class="alert hidden" id="alert">⚠️ Semua data wajib diisi</div>
 </div>
 
-<button class="hidden" id="orderBtn" onclick="orderWA()">ORDER VIA WHATSAPP</button>
+<button onclick="showQRIS()">Bayar QRIS</button>
+<button onclick="orderWA()">ORDER VIA WHATSAPP</button>
 
+</div>
+
+<!-- POPUP QRIS -->
+<div class="popup hidden" id="qris" onclick="this.classList.add('hidden')">
+  <img src="qris.png">
 </div>
 
 <script>
-let layanan="", kategori="", paket="";
+let layanan="", kategori="";
+const data={
+"TikTok_Follower":[
+"50 Follower - Rp 2.500","100 Follower - Rp 4.000","200 Follower - Rp 6.000",
+"300 Follower - Rp 7.000","400 Follower - Rp 8.000","500 Follower - Rp 10.000",
+"600 Follower - Rp 11.000","700 Follower - Rp 12.000","800 Follower - Rp 13.000",
+"900 Follower - Rp 14.000","1000 Follower - Rp 15.000"
+],
+"Instagram_Follower":[
+"50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 5.000",
+"300 Follower - Rp 7.000","400 Follower - Rp 9.000","500 Follower - Rp 11.000",
+"600 Follower - Rp 12.000","700 Follower - Rp 14.000","800 Follower - Rp 16.000",
+"900 Follower - Rp 18.000","1000 Follower - Rp 20.000"
+],
+"Facebook_Follower":[
+"50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 4.000",
+"300 Follower - Rp 5.000","400 Follower - Rp 6.000","500 Follower - Rp 7.000",
+"600 Follower - Rp 8.000","700 Follower - Rp 9.000","800 Follower - Rp 10.000",
+"900 Follower - Rp 11.000","1000 Follower - Rp 12.000"
+],
+"Telegram_Member":[
+"100 Member NO REFILL - Rp 1.500","200 Member NO REFILL - Rp 3.000",
+"100 Member REFILL 7 HARI - Rp 2.500","100 Member REFILL 30 HARI - Rp 3.500"
+]
+};
 
-function showKategori(l){
+function pilihLayanan(l){
   layanan=l;
+  kategori="";
   document.getElementById("kategoriBox").classList.remove("hidden");
-  document.getElementById("layananTitle").innerText="Layanan: "+l;
+  document.getElementById("layananText").innerText="Layanan: "+l;
 }
 
-function showPaket(k){
+function pilihKategori(k){
   kategori=k;
   document.getElementById("paketBox").classList.remove("hidden");
-  document.getElementById("kategoriTitle").innerText="Kategori: "+k;
+  document.getElementById("linkBox").classList.remove("hidden");
+  document.getElementById("kategoriText").innerText="Kategori: "+k;
+
+  const key=layanan+"_"+k;
+  const select=document.getElementById("paket");
+  select.innerHTML="<option value=''>-- Pilih Paket --</option>";
+
+  if(data[key]){
+    data[key].forEach(p=>{
+      let o=document.createElement("option");
+      o.value=p;
+      o.text=p;
+      select.appendChild(o);
+    });
+  }
 }
 
-function pilihPaket(p){
-  paket=p;
-  document.getElementById("linkBox").classList.remove("hidden");
-  document.getElementById("orderBtn").classList.remove("hidden");
+function showQRIS(){
+  document.getElementById("qris").classList.remove("hidden");
 }
 
 function orderWA(){
-  let link=document.getElementById("linkInput").value;
-  let text=`Min saya mau order
+  const paket=document.getElementById("paket").value;
+  const link=document.getElementById("link").value;
+
+  if(!layanan||!kategori||!paket||!link){
+    document.getElementById("alert").classList.remove("hidden");
+    return;
+  }
+
+  const text=`Min saya mau order
 Layanan: ${layanan}
 Kategori: ${kategori}
 Paket: ${paket}
@@ -158,8 +212,7 @@ Link: ${link}
 Pembayaran QRIS atau NOPE
 (Hapus Kata QRIS jika membayar menggunakan NOPE atau Sebaliknya)`;
 
-  let url="https://wa.me/6285166986948?text="+encodeURIComponent(text);
-  window.open(url,"_blank");
+  window.open("https://wa.me/6285166986948?text="+encodeURIComponent(text));
 }
 </script>
 
