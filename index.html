@@ -2,7 +2,8 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>SUNTIK SOSMED BY STROMY</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SUNTIK SOSMED</title>
 
 <style>
 *{
@@ -20,15 +21,15 @@ body{
 .overlay{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,0.55); /* hitam tapi gak pekat */
+  background:rgba(0,0,0,0.55); /* hitam TIDAK pekat */
 }
 
 .container{
   position:relative;
   max-width:480px;
-  margin:40px auto;
-  background:rgba(0,0,0,0.75);
-  padding:25px;
+  margin:24px auto;
+  background:rgba(0,0,0,0.78);
+  padding:20px;
   border-radius:16px;
   color:#fff;
 }
@@ -40,17 +41,17 @@ h1{
 
 .subtitle{
   text-align:center;
-  font-size:14px;
+  font-size:13px;
   opacity:.9;
-  margin-bottom:20px;
+  margin-bottom:16px;
 }
 
 select,input,button{
   width:100%;
   padding:12px;
-  border-radius:8px;
+  border-radius:10px;
   border:none;
-  margin-bottom:10px;
+  margin-bottom:8px;
   font-size:14px;
 }
 
@@ -63,27 +64,35 @@ button{
   color:#fff;
   font-size:16px;
   cursor:pointer;
+  margin-top:10px;
 }
 
 button:hover{
   background:#1eb85b;
 }
 
-.warning{
-  color:red;
-  font-size:13px;
+/* NOTIFIKASI */
+.alert{
+  font-size:12px;
+  color:#ff4d4d;
   margin-bottom:10px;
   display:none;
 }
 
+/* KOTAK INFO */
 .info-box{
-  margin-top:10px;
+  border:1.5px solid #fff;
+  background:rgba(255,255,255,0.08);
   padding:12px;
-  border:1px solid #fff; /* border putih */
   border-radius:10px;
-  background:rgba(255,255,255,0.05);
   font-size:13px;
-  line-height:1.4;
+  line-height:1.6;
+  margin-top:10px;
+}
+
+.info-box h3{
+  font-size:14px;
+  margin-bottom:6px;
 }
 </style>
 </head>
@@ -92,186 +101,126 @@ button:hover{
 <div class="overlay"></div>
 
 <div class="container">
-  <h1>SUNTIK SOSMED BY STROMY</h1>
-  <div class="subtitle">Silakan pilih layanan dan isi data dengan benar</div>
+<h1>SUNTIK SOSMED</h1>
+<div class="subtitle">Silakan pilih layanan dan isi data dengan benar</div>
 
-  <select id="service" onchange="loadCategory()">
-    <option value="">Pilih Layanan</option>
-    <option>TikTok</option>
-    <option>Instagram</option>
-    <option>Facebook</option>
-    <option>Telegram</option>
-    <option>WhatsApp Channel</option>
-  </select>
+<select id="service" onchange="loadCategory()">
+  <option value="">Pilih Layanan</option>
+  <option>TikTok</option>
+  <option>Instagram</option>
+  <option>Facebook</option>
+  <option>Telegram</option>
+  <option>WhatsApp Channel</option>
+</select>
 
-  <select id="category" onchange="loadPackage()">
-    <option value="">Pilih Kategori</option>
-  </select>
+<select id="category" onchange="loadPackage()">
+  <option value="">Pilih Kategori</option>
+</select>
 
-  <select id="package">
-    <option value="">Pilih Paket</option>
-  </select>
+<select id="package">
+  <option value="">Pilih Paket</option>
+</select>
 
-  <input type="text" id="link" placeholder="Masukkan link akun / channel / video">
-  <div id="linkWarn" class="warning">Isi Link Tautan dari akun Kamu atau Video kamu</div>
+<input type="text" id="link" placeholder="Masukkan link akun / channel / video">
+<div id="linkAlert" class="alert">
+Isi Link Tautan dari akun Kamu atau Video kamu
+</div>
 
-  <select id="payment">
-    <option value="">Pilih Pembayaran</option>
-    <option>QRIS</option>
-    <option>DANA</option>
-  </select>
-  <div id="payWarn" class="warning">
-    Pembayaran Dilanjutkan Ke Whatsaap Yang Sudah Otomatis Akan Ke nomor Admin
-  </div>
-
-  <div class="info-box">
-Jika Order Follower itu kan butuh Link nya, nah ini tak kasih tau cara dapat kan nya :
-
-Tiktok = Pergi ke profil, lihat ke pojok atas, lalu cari yang ada tanda bagikan atau panah.
+<!-- KOTAK LINK (ANTI UBAH) -->
+<div class="info-box">
+Jika Order Follower itu kan butuh Link nya, nah ini tak kasih tau cara dapat kan nya :<br><br>
+Tiktok = Pergi ke profil, lihat ke pojok atas, lalu cari yang ada tanda bagikan atau panah.<br>
 Instagram = Pergi ke profil, lihat di tengah ada tulisan bagikan profil pencet di situ ada linknya
-  </div>
+</div>
 
-  <button onclick="order()">Order via WhatsApp</button>
+<!-- KOTAK INFORMASI BARU -->
+<div class="info-box">
+<h3>Informasi</h3>
+NOTE :<br>
+📋SUNTIKAN JUGA TIDAK MENJAMIN 100% PERMANEN<br>
+⏳PASTI SEWAKTU WAKTU BISA BERKURANG DENGAN SENDIRI<br>
+<b>FAKTA ALL SUNTIKAN YA BOS</b><br>
+<b>LU PERCAYA SELLER LAIN PERMANEN? YAUDAH SANA AJA</b>
+</div>
+
+<select id="payment">
+  <option value="">Pilih Pembayaran</option>
+  <option>QRIS</option>
+  <option>DANA</option>
+</select>
+
+<div id="payAlert" class="alert">
+Pembayaran Dilanjutkan Ke Whatsaap Yang Sudah Otomatis Akan Ke nomor Admin
+</div>
+
+<button onclick="order()">Order via WhatsApp</button>
 </div>
 
 <script>
 const WA = "6285166986948";
 
 const data = {
-  "TikTok":{
-    "Follower":[
-      "100 Follower = 4K","200 Follower = 6K","300 Follower = 7K","400 Follower = 8K",
-      "500 Follower = 10K","600 Follower = 11K","700 Follower = 12K",
-      "800 Follower = 13K","900 Follower = 14K","1.000 Follower = 15K"
-    ],
-    "Komentar":[
-      "40 Komentar = 2K","80 Komentar = 3K","120 Komentar = 4K","160 Komentar = 5K",
-      "200 Komentar = 6K","240 Komentar = 7K","280 Komentar = 8K",
-      "320 Komentar = 9K","360 Komentar = 10K","400 Komentar = 11K"
-    ],
-    "Likes":[
-      "1000 Likes = 4K","2000 Likes = 6K","3000 Likes = 8K","4000 Likes = 10K",
-      "5000 Likes = 12K","6000 Likes = 14K","7000 Likes = 16K",
-      "8000 Likes = 18K","9000 Likes = 20K","10000 Likes = 22K"
-    ],
-    "Views":[
-      "4.000 View = 2K","8.000 View = 3K","12.000 View = 4K","16.000 View = 5K",
-      "20.000 View = 6K","24.000 View = 7K","28.000 View = 8K",
-      "32.000 View = 9K","36.000 View = 10K","40.000 View = 11K"
-    ]
-  },
+  TikTok:{ Follower:[ "100 Follower = 4K","200 Follower = 6K","300 Follower = 7K","400 Follower = 8K","500 Follower = 10K","600 Follower = 11K","700 Follower = 12K","800 Follower = 13K","900 Follower = 14K","1.000 Follower = 15K" ],
+  Likes:[ "1000 Likes = 4K","2000 Likes = 6K","3000 Likes = 8K","4000 Likes = 10K","5000 Likes = 12K","6000 Likes = 14K","7000 Likes = 16K","8000 Likes = 18K","9000 Likes = 20K","10000 Likes = 22K" ],
+  Views:[ "4.000 View = 2K","8.000 View = 3K","12.000 View = 4K","16.000 View = 5K","20.000 View = 6K","24.000 View = 7K","28.000 View = 8K","32.000 View = 9K","36.000 View = 10K","40.000 View = 11K" ],
+  Komentar:[ "40 Komentar = 2K","80 Komentar = 3K","120 Komentar = 4K","160 Komentar = 5K","200 Komentar = 6K","240 Komentar = 7K","280 Komentar = 8K","320 Komentar = 9K","360 Komentar = 10K","400 Komentar = 11K" ] },
 
-  "Instagram":{
-    "Follower":[
-      "100 Follower = 3K","200 Follower = 5K","300 Follower = 7K","400 Follower = 9K",
-      "500 Follower = 11K","600 Follower = 12K","700 Follower = 14K",
-      "800 Follower = 16K","900 Follower = 18K","1.000 Follower = 20K"
-    ],
-    "Komentar":[
-      "40 Komentar = 2K","80 Komentar = 3K","120 Komentar = 4K","160 Komentar = 5K",
-      "200 Komentar = 6K","240 Komentar = 7K","280 Komentar = 8K",
-      "320 Komentar = 9K","360 Komentar = 10K","400 Komentar = 11K"
-    ],
-    "Likes":[
-      "500 Likes = 4K","1000 Likes = 7K","1500 Likes = 10K","2000 Likes = 13K",
-      "2500 Likes = 15K","3000 Likes = 17K","3500 Likes = 19K",
-      "4000 Likes = 21K","4500 Likes = 22K","5000 Likes = 23K"
-    ],
-    "Views":[
-      "4.000 View = 3K","8.000 View = 4K","12.000 View = 5K","16.000 View = 6K",
-      "20.000 View = 7K","24.000 View = 8K","28.000 View = 9K",
-      "32.000 View = 10K","36.000 View = 11K","40.000 View = 12K"
-    ]
-  },
+  Instagram:{ Follower:[ "100 Follower = 3K","200 Follower = 5K","300 Follower = 7K","400 Follower = 9K","500 Follower = 11K","600 Follower = 12K","700 Follower = 14K","800 Follower = 16K","900 Follower = 18K","1.000 Follower = 20K" ],
+  Likes:[ "500 Likes = 4K","1000 Likes = 7K","1500 Likes = 10K","2000 Likes = 13K","2500 Likes = 15K","3000 Likes = 17K","3500 Likes = 19K","4000 Likes = 21K","4500 Likes = 22K","5000 Likes = 23K" ],
+  Views:[ "4.000 View = 3K","8.000 View = 4K","12.000 View = 5K","16.000 View = 6K","20.000 View = 7K","24.000 View = 8K","28.000 View = 9K","32.000 View = 10K","36.000 View = 11K","40.000 View = 12K" ],
+  Komentar:[ "40 Komentar = 2K","80 Komentar = 3K","120 Komentar = 4K","160 Komentar = 5K","200 Komentar = 6K","240 Komentar = 7K","280 Komentar = 8K","320 Komentar = 9K","360 Komentar = 10K","400 Komentar = 11K" ] },
 
-  "Facebook":{
-    "Follower":[
-      "100 Follower = 3K","200 Follower = 4K","300 Follower = 5K","400 Follower = 6K",
-      "500 Follower = 7K","600 Follower = 8K","700 Follower = 9K",
-      "800 Follower = 10K","900 Follower = 11K","1.000 Follower = 12K"
-    ],
-    "Likes":[
-      "100 Likes = 2K","200 Likes = 3K","300 Likes = 4K","400 Likes = 5K",
-      "500 Likes = 6K","600 Likes = 7K","700 Likes = 8K",
-      "800 Likes = 9K","900 Likes = 10K","1000 Likes = 11K"
-    ],
-    "Views":[
-      "500 Views = 3,5K","1000 Views = 4,5K","1500 Views = 5,5K","2000 Views = 6,5K",
-      "2500 Views = 7,5K","3000 Views = 8,5K","3500 Views = 9,5K",
-      "4000 Views = 10,5K","4500 Views = 11,5K","5000 Views = 12,5K"
-    ]
-  },
+  Facebook:{ Follower:[ "100 Follower = 3K","200 Follower = 4K","300 Follower = 5K","400 Follower = 6K","500 Follower = 7K","600 Follower = 8K","700 Follower = 9K","800 Follower = 10K","900 Follower = 11K","1.000 Follower = 12K" ],
+  Likes:[ "100 Likes = 2K","200 Likes = 3K","300 Likes = 4K","400 Likes = 5K","500 Likes = 6K","600 Likes = 7K","700 Likes = 8K","800 Likes = 9K","900 Likes = 10K","1000 Likes = 11K" ],
+  Views:[ "500 Views = 3,5K","1000 Views = 4,5K","1500 Views = 5,5K","2000 Views = 6,5K","2500 Views = 7,5K","3000 Views = 8,5K","3500 Views = 9,5K","4000 Views = 10,5K","4500 Views = 11,5K","5000 Views = 12,5K" ] },
 
-  "Telegram":{
-    "NO REFILL":[
-      "100 Member = 1,5K","200 Member = 3K","300 Member = 4K","400 Member = 5K",
-      "500 Member = 6K","600 Member = 7K","700 Member = 8K",
-      "800 Member = 9K","900 Member = 10K","1.000 Member = 11K"
-    ],
-    "REFILL 7 HARI":[
-      "100 Member = 2,5K","200 Member = 3,5K","300 Member = 4,5K","400 Member = 5,5K",
-      "500 Member = 6,5K","600 Member = 7,5K","700 Member = 8,5K",
-      "800 Member = 9,5K","900 Member = 10,5K","1.000 Member = 11,5K"
-    ],
-    "REFILL 30 HARI":[
-      "100 Member = 3,5K","200 Member = 5K","300 Member = 6K","400 Member = 7K",
-      "500 Member = 8K","600 Member = 9K","700 Member = 10K",
-      "800 Member = 11K","900 Member = 12K","1.000 Member = 13K"
-    ]
-  },
+  Telegram:{ "No Refill":[ "100 Member = 1,5K","200 Member = 3K","300 Member = 4K","400 Member = 5K","500 Member = 6K","600 Member = 7K","700 Member = 8K","800 Member = 9K","900 Member = 10K","1.000 Member = 11K" ],
+  "Refill 7 HARI":[ "100 Member = 2,5K","200 Member = 3,5K","300 Member = 4,5K","400 Member = 5,5K","500 Member = 6,5K","600 Member = 7,5K","700 Member = 8,5K","800 Member = 9,5K","900 Member = 10,5K","1.000 Member = 11,5K" ],
+  "Refill 30 HARI":[ "100 Member = 3,5K","200 Member = 5K","300 Member = 6K","400 Member = 7K","500 Member = 8K","600 Member = 9K","700 Member = 10K","800 Member = 11K","900 Member = 12K","1.000 Member = 13K" ] },
 
-  "WhatsApp Channel":{
-    "Pengikut / Member":[
-      "50 Pengikut/Member = 3K","100 Pengikut/Member = 6K","150 Pengikut/Member = 9K",
-      "200 Pengikut/Member = 12K","250 Pengikut/Member = 15K","300 Pengikut/Member = 17K",
-      "350 Pengikut/Member = 19K","400 Pengikut/Member = 21K",
-      "450 Pengikut/Member = 22K","500 Pengikut/Member = 23K"
-    ]
-  }
+  "WhatsApp Channel":{ "Pengikut / Member":[ "50 Pengikut = 3K","100 Pengikut = 6K","150 Pengikut = 9K","200 Pengikut = 12K","250 Pengikut = 15K","300 Pengikut = 17K","350 Pengikut = 19K","400 Pengikut = 21K","450 Pengikut = 22K","500 Pengikut = 23K" ] }
 };
 
-const service = document.getElementById("service");
-const category = document.getElementById("category");
-const pack = document.getElementById("package");
+const service=document.getElementById("service");
+const category=document.getElementById("category");
+const pack=document.getElementById("package");
 
 function loadCategory(){
-  category.innerHTML = '<option value="">Pilih Kategori</option>';
-  pack.innerHTML = '<option value="">Pilih Paket</option>';
+  category.innerHTML="<option value=''>Pilih Kategori</option>";
+  pack.innerHTML="<option value=''>Pilih Paket</option>";
   if(!service.value) return;
-
   Object.keys(data[service.value]).forEach(c=>{
-    category.innerHTML += `<option>${c}</option>`;
+    category.innerHTML+=`<option>${c}</option>`;
   });
 }
 
 function loadPackage(){
-  pack.innerHTML = '<option value="">Pilih Paket</option>';
+  pack.innerHTML="<option value=''>Pilih Paket</option>";
   if(!category.value) return;
-
   data[service.value][category.value].forEach(p=>{
-    pack.innerHTML += `<option>${p}</option>`;
+    pack.innerHTML+=`<option>${p}</option>`;
   });
 }
 
 function order(){
-  const link = document.getElementById("link");
-  const pay = document.getElementById("payment");
-  const linkWarn = document.getElementById("linkWarn");
-  const payWarn = document.getElementById("payWarn");
+  document.getElementById("linkAlert").style.display="none";
+  document.getElementById("payAlert").style.display="none";
 
-  linkWarn.style.display = link.value ? "none" : "block";
-  payWarn.style.display = pay.value ? "none" : "block";
-
-  if(!service.value || !category.value || !pack.value || !link.value || !pay.value){
+  if(!link.value){
+    document.getElementById("linkAlert").style.display="block";
+    return;
+  }
+  if(!payment.value){
+    document.getElementById("payAlert").style.display="block";
     return;
   }
 
-  const text = `Min saya mau order
+  const text=`Min saya mau order
 Layanan : ${service.value}
 Kategori : ${category.value}
 Paket : ${pack.value}
 Link : ${link.value}
-Pembayaran : ${pay.value}`;
+Pembayaran : ${payment.value}`;
 
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
