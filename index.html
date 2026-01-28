@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUNTIK SOSMED BY STROMY</title>
-
+<title>SUNTIK SOSMED</title>
 <style>
 *{
 margin:0;
@@ -12,99 +11,56 @@ padding:0;
 box-sizing:border-box;
 font-family:Arial, Helvetica, sans-serif;
 }
-
 body{
 min-height:100vh;
-background:url("bg.png") center/cover no-repeat fixed;
-}
-
-.overlay{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,0.65);
-z-index:-1;
-}
-
-.container{
-max-width:480px;
-margin:20px auto;
-background:rgba(0,0,0,0.82);
-padding:20px;
-border-radius:16px;
+background:#111; /* hitam tapi tidak pekat */
 color:#fff;
 }
-
-h1{
-text-align:center;
-margin-bottom:6px;
+.container{
+position:relative;
+max-width:480px;
+margin:30px auto;
+background:rgba(0,0,0,0.85);
+padding:25px;
+border-radius:16px;
 }
-
-.subtitle{
-text-align:center;
-font-size:14px;
-opacity:.9;
-margin-bottom:16px;
-}
-
+h1{text-align:center;margin-bottom:8px;}
+.subtitle{text-align:center;font-size:14px;opacity:.9;margin-bottom:20px;}
 select,input,button{
 width:100%;
 padding:12px;
-border-radius:10px;
+border-radius:8px;
 border:none;
 margin-bottom:10px;
 font-size:14px;
 }
-
-select,input{
-background:#fff;
-color:#000;
-}
-
-button{
-background:#25D366;
-color:#fff;
-font-size:16px;
-font-weight:bold;
-cursor:pointer;
-}
-
-button:hover{
-background:#1eb85b;
-}
-
-.notice{
-font-size:12px;
-color:red;
-display:none;
-margin-bottom:10px;
-}
-
+input,select{background:#fff;color:#000;}
+button{background:#25D366;color:#fff;font-size:16px;cursor:pointer;}
+button:hover{background:#1eb85b;}
+.alert{color:red;font-size:13px;margin-bottom:10px;display:none;}
 .box{
-margin-top:10px;
-padding:12px;
+border:1.5px solid #fff;
 background:rgba(255,255,255,0.08);
-border:1px solid #fff;
-border-radius:10px;
+padding:12px;
+border-radius:12px;
 font-size:13px;
+margin-bottom:12px;
 display:none;
 }
-
 .preview{
-margin-top:10px;
+margin-bottom:12px;
 padding:10px;
-background:rgba(0,0,0,0.6);
+background:rgba(255,255,255,0.08);
 border-radius:10px;
 font-size:13px;
+white-space:pre-line;
 }
 </style>
 </head>
-
 <body>
-<div class="overlay"></div>
-
 <div class="container">
-<h1>SUNTIK SOSMED BY STROMY</h1>
-<div class="subtitle">Silakan pilih layanan & isi data dengan benar</div>
+<h1>SUNTIK SOSMED</h1>
+<div class="subtitle">Silakan pilih layanan dan isi data dengan benar</div>
 
 <select id="service" onchange="loadCategory()">
 <option value="">Pilih Layanan</option>
@@ -115,45 +71,39 @@ font-size:13px;
 <option>WhatsApp Channel</option>
 </select>
 
-<select id="category" onchange="onCategoryChange()">
+<select id="category" onchange="loadPackage()">
 <option value="">Pilih Kategori</option>
 </select>
 
+<!-- Kotak Info Link Follower -->
 <div id="boxFollower" class="box">
-Jika Order Follower itu kan butuh Link nya, nah ini tak kasih tau cara dapat kan nya :
-- Tiktok = Pergi ke profil, lihat ke pojok atas, lalu cari yang ada tanda bagikan atau panah.
-- Instagram = Pergi ke profil, lihat di tengah ada tulisan bagikan profil pencet di situ ada linknya
+Jika Order Follower itu kan butuh Link nya, nah ini tak kasih tau cara dapat kan nya :  
+<br><br>
+Tiktok = Pergi ke profil, lihat ke pojok atas, lalu cari yang ada tanda bagikan atau panah.  
+<br>
+Instagram = Pergi ke profil, lihat di tengah ada tulisan bagikan profil pencet di situ ada linknya
 </div>
 
 <select id="package" onchange="updatePreview()">
 <option value="">Pilih Paket</option>
 </select>
 
-<div class="preview" id="preview">Preview Pesanan akan muncul di sini</div>
+<input type="text" id="link" placeholder="Masukkan link akun / channel / video" oninput="updatePreview()">
+<div id="linkAlert" class="alert">Isi Link Tautan dari akun Kamu atau Video kamu</div>
 
-<input type="text" id="link" placeholder="Masukkan link akun / channel / video">
-<div class="notice" id="linkWarn">Isi Link Tautan dari akun Kamu atau Video kamu</div>
-
-<select id="payment">
+<select id="payment" onchange="updatePreview()">
 <option value="">Pilih Pembayaran</option>
 <option>QRIS</option>
 <option>DANA</option>
 </select>
-<div class="notice" id="payWarn">Pembayaran Dilanjutkan Ke Whatsaap Yang Sudah Otomatis Akan Ke nomor Admin</div>
+<div id="payAlert" class="alert">Pembayaran Dilanjutkan Ke WhatsApp Yang Sudah Otomatis Akan Ke nomor Admin</div>
 
-<div id="boxKomentar" class="box">
-Jika kamu order Komentar Maka kamu bisa buat komentar nya seperti apa, 1 baris 1 kalimat atau kata.
-Contoh nya :
-You
-Aku
-Kita
-We
-Can
-</div>
+<div id="preview" class="preview">Preview Pesanan akan muncul di sini</div>
 
 <button onclick="order()">Order via WhatsApp</button>
 
-<div class="box" style="display:block;margin-top:15px;">
+<!-- Kotak Informasi Paling Bawah -->
+<div id="boxInfo" class="box" style="display:block">
 <b>Judul : Informasi</b><br><br>
 NOTE :<br>
 📋SUNTIKAN JUGA TIDAK MENJAMIN 100% PERMANEN<br>
@@ -165,129 +115,61 @@ NOTE :<br>
 </div>
 
 <script>
-const WA="6285166986948";
+const WA = "6285166986948";
 
 const data={
-TikTok:{
-Follower:[
-"100 Follower - Rp 4.000","200 Follower - Rp 6.000","300 Follower - Rp 7.000",
-"400 Follower - Rp 8.000","500 Follower - Rp 10.000","600 Follower - Rp 11.000",
-"700 Follower - Rp 12.000","800 Follower - Rp 13.000","900 Follower - Rp 14.000",
-"1.000 Follower - Rp 15.000"
-],
-Likes:[
-"1000 Likes - Rp 4.000","2000 Likes - Rp 6.000","3000 Likes - Rp 8.000",
-"4000 Likes - Rp 10.000","5000 Likes - Rp 12.000","6000 Likes - Rp 14.000",
-"7000 Likes - Rp 16.000","8000 Likes - Rp 18.000","9000 Likes - Rp 20.000",
-"10000 Likes - Rp 22.000"
-],
-Views:[
-"4.000 View - Rp 2.000","8.000 View - Rp 3.000","12.000 View - Rp 4.000",
-"16.000 View - Rp 5.000","20.000 View - Rp 6.000","24.000 View - Rp 7.000",
-"28.000 View - Rp 8.000","32.000 View - Rp 9.000",
-"36.000 View - Rp 10.000","40.000 View - Rp 11.000"
-],
-Komentar:[
-"40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000",
-"160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000",
-"280 Komentar - Rp 8.000","320 Komentar - Rp 9.000",
-"360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"
-]
+"TikTok":{
+"Follower":["50 Follower - Rp 2.500","100 Follower - Rp 4.000","200 Follower - Rp 6.000","300 Follower - Rp 7.000","400 Follower - Rp 8.000","500 Follower - Rp 10.000","600 Follower - Rp 11.000","700 Follower - Rp 12.000","800 Follower - Rp 13.000","900 Follower - Rp 14.000","1.000 Follower - Rp 15.000"],
+"Likes":["1000 Likes - Rp 4.000","2000 Likes - Rp 6.000","3000 Likes - Rp 8.000","4000 Likes - Rp 10.000","5000 Likes - Rp 12.000","6000 Likes - Rp 14.000","7000 Likes - Rp 16.000","8000 Likes - Rp 18.000","9000 Likes - Rp 20.000","10000 Likes - Rp 22.000"],
+"Views":["4.000 View - Rp 2.000","8.000 View - Rp 3.000","12.000 View - Rp 4.000","16.000 View - Rp 5.000","20.000 View - Rp 6.000","24.000 View - Rp 7.000","28.000 View - Rp 8.000","32.000 View - Rp 9.000","36.000 View - Rp 10.000","40.000 View - Rp 11.000"],
+"Komentar":["40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000","160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000","280 Komentar - Rp 8.000","320 Komentar - Rp 9.000","360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"]
 },
-Instagram:{
-Follower:[
-"100 Follower - Rp 3.000","200 Follower - Rp 5.000","300 Follower - Rp 7.000",
-"400 Follower - Rp 9.000","500 Follower - Rp 11.000","600 Follower - Rp 12.000",
-"700 Follower - Rp 14.000","800 Follower - Rp 16.000",
-"900 Follower - Rp 18.000","1.000 Follower - Rp 20.000"
-],
-Likes:[
-"500 Likes - Rp 4.000","1000 Likes - Rp 7.000","1500 Likes - Rp 10.000",
-"2000 Likes - Rp 13.000","2500 Likes - Rp 15.000","3000 Likes - Rp 17.000",
-"3500 Likes - Rp 19.000","4000 Likes - Rp 21.000",
-"4500 Likes - Rp 22.000","5000 Likes - Rp 23.000"
-],
-Views:[
-"4.000 View - Rp 3.000","8.000 View - Rp 4.000","12.000 View - Rp 5.000",
-"16.000 View - Rp 6.000","20.000 View - Rp 7.000","24.000 View - Rp 8.000",
-"28.000 View - Rp 9.000","32.000 View - Rp 10.000",
-"36.000 View - Rp 11.000","40.000 View - Rp 12.000"
-],
-Komentar:[
-"40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000",
-"160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000",
-"280 Komentar - Rp 8.000","320 Komentar - Rp 9.000",
-"360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"
-]
+"Instagram":{
+"Follower":["50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 5.000","300 Follower - Rp 7.000","400 Follower - Rp 9.000","500 Follower - Rp 11.000","600 Follower - Rp 12.000","700 Follower - Rp 14.000","800 Follower - Rp 16.000","900 Follower - Rp 18.000","1.000 Follower - Rp 20.000"],
+"Likes":["500 Likes - Rp 4.000","1000 Likes - Rp 7.000","1500 Likes - Rp 10.000","2000 Likes - Rp 13.000","2500 Likes - Rp 15.000","3000 Likes - Rp 17.000","3500 Likes - Rp 19.000","4000 Likes - Rp 21.000","4500 Likes - Rp 22.000","5000 Likes - Rp 23.000"],
+"Views":["4.000 View - Rp 3.000","8.000 View - Rp 4.000","12.000 View - Rp 5.000","16.000 View - Rp 6.000","20.000 View - Rp 7.000","24.000 View - Rp 8.000","28.000 View - Rp 9.000","32.000 View - Rp 10.000","36.000 View - Rp 11.000","40.000 View - Rp 12.000"],
+"Komentar":["40 Komentar - Rp 2.000","80 Komentar - Rp 3.000","120 Komentar - Rp 4.000","160 Komentar - Rp 5.000","200 Komentar - Rp 6.000","240 Komentar - Rp 7.000","280 Komentar - Rp 8.000","320 Komentar - Rp 9.000","360 Komentar - Rp 10.000","400 Komentar - Rp 11.000"]
 },
 Facebook:{
-Follower:[
-"100 Follower - Rp 3.000","200 Follower - Rp 4.000","300 Follower - Rp 5.000",
-"400 Follower - Rp 6.000","500 Follower - Rp 7.000","600 Follower - Rp 8.000",
-"700 Follower - Rp 9.000","800 Follower - Rp 10.000",
-"900 Follower - Rp 11.000","1.000 Follower - Rp 12.000"
-],
-Likes:[
-"100 Likes - Rp 2.000","200 Likes - Rp 3.000","300 Likes - Rp 4.000",
-"400 Likes - Rp 5.000","500 Likes - Rp 6.000","600 Likes - Rp 7.000",
-"700 Likes - Rp 8.000","800 Likes - Rp 9.000",
-"900 Likes - Rp 10.000","1000 Likes - Rp 11.000"
-],
-Views:[
-"500 Views - Rp 3.500","1000 Views - Rp 4.500","1500 Views - Rp 5.500",
-"2000 Views - Rp 6.500","2500 Views - Rp 7.500","3000 Views - Rp 8.500",
-"3500 Views - Rp 9.500","4000 Views - Rp 10.500",
-"4500 Views - Rp 11.500","5000 Views - Rp 12.500"
-]
+"Follower":["50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 4.000","300 Follower - Rp 5.000","400 Follower - Rp 6.000","500 Follower - Rp 7.000","600 Follower - Rp 8.000","700 Follower - Rp 9.000","800 Follower - Rp 10.000","900 Follower - Rp 11.000","1.000 Follower - Rp 12.000"],
+"Likes":["100 Likes - Rp 2.000","200 Likes - Rp 3.000","300 Likes - Rp 4.000","400 Likes - Rp 5.000","500 Likes - Rp 6.000","600 Likes - Rp 7.000","700 Likes - Rp 8.000","800 Likes - Rp 9.000","900 Likes - Rp 10.000","1000 Likes - Rp 11.000"],
+"Views":["500 Views - Rp 3.500","1000 Views - Rp 4.500","1500 Views - Rp 5.500","2000 Views - Rp 6.500","2500 Views - Rp 7.500","3000 Views - Rp 8.500","3500 Views - Rp 9.500","4000 Views - Rp 10.500","4500 Views - Rp 11.500","5000 Views - Rp 12.500"]
 },
 Telegram:{
-"No Refill":[
-"100 Member - Rp 1.500","200 Member - Rp 3.000","300 Member - Rp 4.000",
-"400 Member - Rp 5.000","500 Member - Rp 6.000","600 Member - Rp 7.000",
-"700 Member - Rp 8.000","800 Member - Rp 9.000",
-"900 Member - Rp 10.000","1.000 Member - Rp 11.000"
-],
-"Refill 7 Hari":[
-"100 Member - Rp 2.500","200 Member - Rp 3.500","300 Member - Rp 4.500",
-"400 Member - Rp 5.500","500 Member - Rp 6.500","600 Member - Rp 7.500",
-"700 Member - Rp 8.500","800 Member - Rp 9.500",
-"900 Member - Rp 10.500","1.000 Member - Rp 11.500"
-],
-"Refill 30 Hari":[
-"100 Member - Rp 3.500","200 Member - Rp 5.000","300 Member - Rp 6.000",
-"400 Member - Rp 7.000","500 Member - Rp 8.000","600 Member - Rp 9.000",
-"700 Member - Rp 10.000","800 Member - Rp 11.000",
-"900 Member - Rp 12.000","1.000 Member - Rp 13.000"
-]
+"No Refill":["100 Member - Rp 1.500","200 Member - Rp 3.000","300 Member - Rp 4.000","400 Member - Rp 5.000","500 Member - Rp 6.000","600 Member - Rp 7.000","700 Member - Rp 8.000","800 Member - Rp 9.000","900 Member - Rp 10.000","1.000 Member - Rp 11.000"],
+"Refill 7 Hari":["100 Member - Rp 2.500","200 Member - Rp 3.500","300 Member - Rp 4.500","400 Member - Rp 5.500","500 Member - Rp 6.500","600 Member - Rp 7.500","700 Member - Rp 8.500","800 Member - Rp 9.500","900 Member - Rp 10.500","1.000 Member - Rp 11.500"],
+"Refill 30 Hari":["100 Member - Rp 3.500","200 Member - Rp 5.000","300 Member - Rp 6.000","400 Member - Rp 7.000","500 Member - Rp 8.000","600 Member - Rp 9.000","700 Member - Rp 10.000","800 Member - Rp 11.000","900 Member - Rp 12.000","1.000 Member - Rp 13.000"]
 },
 "WhatsApp Channel":{
-"Pengikut / Member":[
-"50 Pengikut - Rp 3.000","100 Pengikut - Rp 6.000","150 Pengikut - Rp 9.000",
-"200 Pengikut - Rp 12.000","250 Pengikut - Rp 15.000","300 Pengikut - Rp 17.000",
-"350 Pengikut - Rp 19.000","400 Pengikut - Rp 21.000",
-"450 Pengikut - Rp 22.000","500 Pengikut - Rp 23.000"
-]
+"Pengikut / Member":["50 Pengikut - Rp 3.000","100 Pengikut - Rp 6.000","150 Pengikut - Rp 9.000","200 Pengikut - Rp 12.000","250 Pengikut - Rp 15.000","300 Pengikut - Rp 17.000","350 Pengikut - Rp 19.000","400 Pengikut - Rp 21.000","450 Pengikut - Rp 22.000","500 Pengikut - Rp 23.000"]
 }
 };
 
-const service=document.getElementById("service");
-const category=document.getElementById("category");
-const pack=document.getElementById("package");
+const service = document.getElementById("service");
+const category = document.getElementById("category");
+const pack = document.getElementById("package");
+const linkInput = document.getElementById("link");
+const payment = document.getElementById("payment");
+const boxFollower = document.getElementById("boxFollower");
+const preview = document.getElementById("preview");
+const linkAlert = document.getElementById("linkAlert");
+const payAlert = document.getElementById("payAlert");
 
 function loadCategory(){
-category.innerHTML='<option value="">Pilih Kategori</option>';
-pack.innerHTML='<option value="">Pilih Paket</option>';
-for(let c in data[service.value]){
+category.innerHTML="<option value=''>Pilih Kategori</option>";
+pack.innerHTML="<option value=''>Pilih Paket</option>";
+boxFollower.style.display="none";
+if(!service.value) return;
+Object.keys(data[service.value]).forEach(c=>{
 category.innerHTML+=`<option>${c}</option>`;
-}
+});
+updatePreview();
 }
 
-function onCategoryChange(){
-pack.innerHTML='<option value="">Pilih Paket</option>';
-document.getElementById("boxFollower").style.display=
-category.value==="Follower"?"block":"none";
-document.getElementById("boxKomentar").style.display=
-category.value==="Komentar"?"block":"none";
+function loadPackage(){
+pack.innerHTML="<option value=''>Pilih Paket</option>";
+boxFollower.style.display=category.value.includes("Follower")?"block":"none";
+if(!category.value) return;
 data[service.value][category.value].forEach(p=>{
 pack.innerHTML+=`<option>${p}</option>`;
 });
@@ -295,28 +177,24 @@ updatePreview();
 }
 
 function updatePreview(){
-document.getElementById("preview").innerText=
-`Layanan : ${service.value || "-"}
-Kategori : ${category.value || "-"}
-Paket : ${pack.value || "-"}`;
+let text=`Layanan : ${service.value || "-"}\nKategori : ${category.value || "-"}\nPaket : ${pack.value || "-"}\nLink : ${linkInput.value || "-"}\nPembayaran : ${payment.value || "-"}`;
+preview.innerText=text;
 }
 
 function order(){
-let ok=true;
-if(!link.value){linkWarn.style.display="block";ok=false;}else linkWarn.style.display="none";
-if(!payment.value){payWarn.style.display="block";ok=false;}else payWarn.style.display="none";
-if(!ok)return;
+linkAlert.style.display = linkInput.value?"none":"block";
+payAlert.style.display = payment.value?"none":"block";
+if(!service.value||!category.value||!pack.value||!linkInput.value||!payment.value) return;
 
-let text=`Min saya mau order
+const text=`Min saya mau order
 Layanan : ${service.value}
 Kategori : ${category.value}
 Paket : ${pack.value}
-Link : ${link.value}
+Link : ${linkInput.value} (Contoh: https://www.tiktok.com/@mangg_clipper?_r=1&_t=ZS-93RaaVfiWgO)
 Pembayaran : ${payment.value}`;
 
 window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
 </script>
-
 </body>
 </html>
