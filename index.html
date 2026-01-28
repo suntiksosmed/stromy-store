@@ -3,218 +3,189 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SUNTIK SOSMED STROMY</title>
+<title>Jasa Suntik Sosmed</title>
 
 <style>
-*{box-sizing:border-box}
+*{box-sizing:border-box;font-family:Arial}
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  background:
-    linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
-    url("background.png") center/cover fixed;
-  color:#fff;
+margin:0;color:#fff;
+background:
+linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+url("https://photos.app.goo.gl/TNvSiU9C1ueifxEG6");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 }
-
-.container{
-  max-width:480px;
-  margin:auto;
-  padding:20px;
-}
-
-h1{text-align:center;margin:10px 0 0}
-.intro{text-align:center;opacity:.85;margin-bottom:20px}
-
+.container{max-width:520px;margin:auto;padding:15px}
 .card{
-  background:rgba(255,255,255,.1);
-  border-radius:18px;
-  padding:15px;
-  margin-bottom:15px;
+background:rgba(0,0,0,.55);
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
 }
-
-.option{
-  background:rgba(255,255,255,.18);
-  padding:14px;
-  border-radius:14px;
-  margin-top:10px;
-  cursor:pointer;
-  transition:.25s;
-  text-align:center;
+h1{text-align:center}
+select,input,button{
+width:100%;padding:10px;margin-top:8px;
+border-radius:8px;border:none;font-size:14px;
 }
-.option:hover{
-  transform:scale(1.05);
-  background:rgba(255,255,255,.3);
-}
-
+button{background:#00e676;color:#000;font-weight:bold}
 .hidden{display:none}
-
-select,input{
-  width:100%;
-  padding:14px;
-  border-radius:14px;
-  border:none;
-  margin-top:10px;
-}
-
-button{
-  width:100%;
-  padding:16px;
-  border:none;
-  border-radius:16px;
-  background:#00ffcc;
-  font-weight:bold;
-  font-size:16px;
-  margin-top:15px;
-}
-
-.alert{
-  color:#ff4d4d;
-  font-size:14px;
-  margin-top:8px;
-}
-
-.popup{
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.8);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.popup img{
-  max-width:80%;
-  border-radius:14px;
+.alert{color:#ff5252;font-size:13px;margin-top:5px}
+.info{
+background:rgba(255,255,255,.12);
+padding:10px;border-radius:8px;font-size:13px;margin-top:10px
 }
 </style>
 </head>
 
 <body>
 <div class="container">
+<h1>🚀 JASA SUNTIK SOSMED</h1>
 
-<h1>SUNTIK SOSMED STROMY</h1>
-<div class="intro">Layanan Suntik Sosial Media Profesional</div>
-
-<!-- LAYANAN -->
 <div class="card">
-  <div class="option" onclick="pilihLayanan('TikTok')">📱 TikTok</div>
-  <div class="option" onclick="pilihLayanan('Instagram')">📸 Instagram</div>
-  <div class="option" onclick="pilihLayanan('Facebook')">📘 Facebook</div>
-  <div class="option" onclick="pilihLayanan('WhatsApp')">💬 WhatsApp</div>
-  <div class="option" onclick="pilihLayanan('Telegram')">✈️ Telegram</div>
+<select id="layanan" onchange="pilihLayanan()">
+<option value="">📌 Pilih Layanan</option>
+<option value="follower">Follower</option>
+<option value="member">Member</option>
+<option value="like">Like</option>
+<option value="view">View</option>
+<option value="komentar">Komentar</option>
+</select>
 </div>
 
-<!-- KATEGORI -->
 <div class="card hidden" id="kategoriBox">
-  <b id="layananText"></b>
-  <div class="option" onclick="pilihKategori('Follower')">Follower</div>
-  <div class="option" onclick="pilihKategori('Like')">Like</div>
-  <div class="option" onclick="pilihKategori('View')">View</div>
-  <div class="option" onclick="pilihKategori('Komentar')">Komentar</div>
-  <div class="option" onclick="pilihKategori('Member')">Pengikut / Member</div>
+<select id="kategori" onchange="pilihKategori()"></select>
 </div>
 
-<!-- PAKET -->
 <div class="card hidden" id="paketBox">
-  <b id="kategoriText"></b>
-  <select id="paket"></select>
+<select id="paket"></select>
 </div>
 
-<!-- LINK -->
-<div class="card hidden" id="linkBox">
-  <b>Link Akun / Channel / Video</b>
-  <input id="link" placeholder="https://..." />
-  <div class="alert hidden" id="alert">⚠️ Semua data wajib diisi</div>
+<div class="card">
+<input id="link" placeholder="Masukkan link akun / video">
+<div id="alertLink" class="alert hidden">
+Isi Link Tautan dari akun Kamu atau Video kamu
 </div>
 
-<button onclick="showQRIS()">Bayar QRIS</button>
-<button onclick="orderWA()">ORDER VIA WHATSAPP</button>
-
+<div class="info">
+<b>Cara ambil link:</b><br>
+• TikTok → Profil → Bagikan → Salin link<br>
+• Instagram → Profil → Bagikan Profil
+</div>
 </div>
 
-<!-- POPUP QRIS -->
-<div class="popup hidden" id="qris" onclick="this.classList.add('hidden')">
-  <img src="qris.png">
+<div class="card">
+<select id="pay">
+<option value="">💳 Pilih Pembayaran</option>
+<option>QRIS</option>
+<option>DANA</option>
+<option>OVO</option>
+</select>
+<div id="alertPay" class="alert hidden">
+Silakan pilih metode pembayaran
+</div>
+</div>
+
+<button onclick="order()">📩 ORDER SEKARANG</button>
 </div>
 
 <script>
-let layanan="", kategori="";
-const data={
-"TikTok_Follower":[
-"50 Follower - Rp 2.500","100 Follower - Rp 4.000","200 Follower - Rp 6.000",
-"300 Follower - Rp 7.000","400 Follower - Rp 8.000","500 Follower - Rp 10.000",
-"600 Follower - Rp 11.000","700 Follower - Rp 12.000","800 Follower - Rp 13.000",
-"900 Follower - Rp 14.000","1000 Follower - Rp 15.000"
+const data = {
+follower:{
+"TikTok":[
+"100 = 4K","200 = 6K","300 = 7K","400 = 8K","500 = 10K","600 = 11K",
+"700 = 12K","800 = 13K","900 = 14K","1.000 = 15K"
 ],
-"Instagram_Follower":[
-"50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 5.000",
-"300 Follower - Rp 7.000","400 Follower - Rp 9.000","500 Follower - Rp 11.000",
-"600 Follower - Rp 12.000","700 Follower - Rp 14.000","800 Follower - Rp 16.000",
-"900 Follower - Rp 18.000","1000 Follower - Rp 20.000"
+"Instagram":[
+"100 = 3K","200 = 5K","300 = 7K","400 = 9K","500 = 11K","600 = 12K",
+"700 = 14K","800 = 16K","900 = 18K","1.000 = 20K"
 ],
-"Facebook_Follower":[
-"50 Follower - Rp 2.000","100 Follower - Rp 3.000","200 Follower - Rp 4.000",
-"300 Follower - Rp 5.000","400 Follower - Rp 6.000","500 Follower - Rp 7.000",
-"600 Follower - Rp 8.000","700 Follower - Rp 9.000","800 Follower - Rp 10.000",
-"900 Follower - Rp 11.000","1000 Follower - Rp 12.000"
-],
-"Telegram_Member":[
-"100 Member NO REFILL - Rp 1.500","200 Member NO REFILL - Rp 3.000",
-"100 Member REFILL 7 HARI - Rp 2.500","100 Member REFILL 30 HARI - Rp 3.500"
+"Facebook":[
+"100 = 3K","200 = 4K","300 = 5K","400 = 6K","500 = 7K","600 = 8K",
+"700 = 9K","800 = 10K","900 = 11K","1.000 = 12K"
 ]
+},
+member:{
+"Telegram NO REFILL":[
+"100 = 1,5K","200 = 3K","300 = 4K","400 = 5K","500 = 6K",
+"600 = 7K","700 = 8K","800 = 9K","900 = 10K","1.000 = 11K"
+],
+"Telegram REFILL 7 HARI":[
+"100 = 2,5K","200 = 3,5K","300 = 4,5K","400 = 5,5K","500 = 6,5K",
+"600 = 7,5K","700 = 8,5K","800 = 9,5K","900 = 10,5K","1.000 = 11,5K"
+],
+"Telegram REFILL 30 HARI":[
+"100 = 3,5K","200 = 5K","300 = 6K","400 = 7K","500 = 8K",
+"600 = 9K","700 = 10K","800 = 11K","900 = 12K","1.000 = 13K"
+],
+"WhatsApp Channel":[
+"50 = 3K","100 = 6K","150 = 9K","200 = 12K","250 = 15K",
+"300 = 17K","350 = 19K","400 = 21K","450 = 22K","500 = 23K"
+]
+},
+komentar:{
+"TikTok":[
+"40 = 2K","80 = 3K","120 = 4K","160 = 5K","200 = 6K",
+"240 = 7K","280 = 8K","320 = 9K","360 = 10K","400 = 11K"
+],
+"Instagram":[
+"40 = 2K","80 = 3K","120 = 4K","160 = 5K","200 = 6K",
+"240 = 7K","280 = 8K","320 = 9K","360 = 10K","400 = 11K"
+]
+},
+like:{
+"TikTok":[
+"1.000 = 4K","2.000 = 6K","3.000 = 8K","4.000 = 10K","5.000 = 12K",
+"6.000 = 14K","7.000 = 16K","8.000 = 18K","9.000 = 20K","10.000 = 22K"
+],
+"Instagram":[
+"500 = 4K","1.000 = 7K","1.500 = 10K","2.000 = 13K","2.500 = 15K",
+"3.000 = 17K","3.500 = 19K","4.000 = 21K","4.500 = 22K","5.000 = 23K"
+],
+"Facebook":[
+"100 = 2K","200 = 3K","300 = 4K","400 = 5K","500 = 6K",
+"600 = 7K","700 = 8K","800 = 9K","900 = 10K","1.000 = 11K"
+]
+},
+view:{
+"TikTok":[
+"4.000 = 2K","8.000 = 3K","12.000 = 4K","16.000 = 5K","20.000 = 6K",
+"24.000 = 7K","28.000 = 8K","32.000 = 9K","36.000 = 10K","40.000 = 11K"
+],
+"Instagram":[
+"4.000 = 3K","8.000 = 4K","12.000 = 5K","16.000 = 6K","20.000 = 7K",
+"24.000 = 8K","28.000 = 9K","32.000 = 10K","36.000 = 11K","40.000 = 12K"
+],
+"Facebook Video":[
+"500 = 3,5K","1.000 = 4,5K","1.500 = 5,5K","2.000 = 6,5K","2.500 = 7,5K",
+"3.000 = 8,5K","3.500 = 9,5K","4.000 = 10,5K","4.500 = 11,5K","5.000 = 12,5K"
+]
+}
 };
 
-function pilihLayanan(l){
-  layanan=l;
-  kategori="";
-  document.getElementById("kategoriBox").classList.remove("hidden");
-  document.getElementById("layananText").innerText="Layanan: "+l;
+function pilihLayanan(){
+kategori.innerHTML="";paket.innerHTML="";
+kategoriBox.classList.remove("hidden");
+paketBox.classList.add("hidden");
+for(let k in data[layanan.value]){
+kategori.innerHTML+=`<option>${k}</option>`;
 }
-
-function pilihKategori(k){
-  kategori=k;
-  document.getElementById("paketBox").classList.remove("hidden");
-  document.getElementById("linkBox").classList.remove("hidden");
-  document.getElementById("kategoriText").innerText="Kategori: "+k;
-
-  const key=layanan+"_"+k;
-  const select=document.getElementById("paket");
-  select.innerHTML="<option value=''>-- Pilih Paket --</option>";
-
-  if(data[key]){
-    data[key].forEach(p=>{
-      let o=document.createElement("option");
-      o.value=p;
-      o.text=p;
-      select.appendChild(o);
-    });
-  }
+pilihKategori();
 }
-
-function showQRIS(){
-  document.getElementById("qris").classList.remove("hidden");
+function pilihKategori(){
+paket.innerHTML="";
+paketBox.classList.remove("hidden");
+data[layanan.value][kategori.value].forEach(p=>{
+paket.innerHTML+=`<option>${p}</option>`;
+});
 }
-
-function orderWA(){
-  const paket=document.getElementById("paket").value;
-  const link=document.getElementById("link").value;
-
-  if(!layanan||!kategori||!paket||!link){
-    document.getElementById("alert").classList.remove("hidden");
-    return;
-  }
-
-  const text=`Min saya mau order
-Layanan: ${layanan}
-Kategori: ${kategori}
-Paket: ${paket}
-Link: ${link}
-
-Pembayaran QRIS atau NOPE
-(Hapus Kata QRIS jika membayar menggunakan NOPE atau Sebaliknya)`;
-
-  window.open("https://wa.me/6285166986948?text="+encodeURIComponent(text));
+function order(){
+alertLink.classList.add("hidden");
+alertPay.classList.add("hidden");
+if(!link.value){alertLink.classList.remove("hidden");return;}
+if(!pay.value){alertPay.classList.remove("hidden");return;}
+alert("Order siap dikirim ke admin ✅");
 }
 </script>
-
 </body>
 </html>
