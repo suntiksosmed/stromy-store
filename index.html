@@ -25,6 +25,57 @@ button:hover{background:#1eb85b;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 @keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+/* ===== TAMBAHAN FITUR KIRIM ORDERAN ===== */
+.send-box{
+margin-top:12px;
+padding:12px;
+border-radius:10px;
+border:1.5px dashed rgba(255,255,255,0.6);
+background:rgba(255,255,255,0.08);
+text-align:center;
+cursor:pointer;
+transition:0.3s;
+user-select:none;
+}
+.send-box:hover{
+background:rgba(255,255,255,0.18);
+}
+
+.notif{
+position:fixed;
+top:-100px;
+left:50%;
+transform:translateX(-50%);
+background:#25D366;
+color:#fff;
+padding:14px 20px;
+border-radius:12px;
+font-size:14px;
+box-shadow:0 6px 20px rgba(0,0,0,0.6);
+z-index:9999;
+transition:0.5s ease;
+}
+.notif.show{
+top:20px;
+}
+
+.history{
+margin-top:20px;
+border-top:1px solid rgba(255,255,255,0.3);
+padding-top:15px;
+}
+.history h3{
+font-size:15px;
+margin-bottom:10px;
+}
+.history-item{
+background:rgba(255,255,255,0.08);
+padding:10px;
+border-radius:10px;
+font-size:12px;
+margin-bottom:8px;
+white-space:pre-line;
+}
 </style>
 </head>
 <body>
@@ -76,6 +127,18 @@ INSTAGRAM = Pergi ke profil, Liat ke tengah, Ada tulisan bagikan profil Pencet D
 <div id="preview" class="preview">Preview Pesanan akan muncul di sini</div>
 
 <button onclick="order()">Order via WhatsApp</button>
+<div class="send-box" onclick="sendOrderServer()">
+Kirim Orderan
+</div>
+
+<div id="notif" class="notif">
+Pesan/Orderan anda telah terkirim, Sung chat Ke nomor yang ada di chat kita
+</div>
+
+<div class="history">
+<h3>📦 Riwayat Pesanan</h3>
+<div id="historyList"></div>
+</div>
 
 <div id="boxInfo" class="box show">
 <b>Judul : Informasi</b><br><br>
@@ -201,6 +264,19 @@ Pembayaran : ${paymentEl.value}`;
 
 window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
+<style>
+/* ===== TAMBAHAN WARNA HIJAU TOMBOL KIRIM ORDER ===== */
+.send-box{
+background:#25D366 !important;
+border:1.5px dashed #25D366 !important;
+color:#fff !important;
+font-weight:bold;
+}
+
+.send-box:hover{
+background:#1eb85b !important;
+}
+</style>
 </script>
 </body>
 </html>
