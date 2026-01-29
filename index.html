@@ -192,12 +192,12 @@ payAlertEl.style.display = paymentEl.value?"none":"block";
 if(!serviceEl.value||!categoryEl.value||!packEl.value||!linkEl.value||!paymentEl.value) return;
 
 const text=
-`Min saya mau order`
-`Layanan : ${serviceEl.value}`    
-`Kategori : ${categoryEl.value}`
-`Paket : ${packEl.value}`
-`Link : ${linkEl.value}`
-`Pembayaran : ${paymentEl.value};`
+`Min saya mau order
+Layanan : ${serviceEl.value}    
+Kategori : ${categoryEl.value}
+Paket : ${packEl.value}
+Link : ${linkEl.value}
+Pembayaran : ${paymentEl.value}`;
 
 window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
