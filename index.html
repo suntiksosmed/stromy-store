@@ -5,61 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SUNTIK SOSMED</title>
 <style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-body{
-min-height:100vh;
-background:#111; /* hitam tapi tidak pekat */
-color:#fff;
-}
-.container{
-position:relative;
-max-width:480px;
-margin:30px auto;
-background:rgba(0,0,0,0.85);
-padding:25px;
-border-radius:16px;
-}
-h1{text-align:center;margin-bottom:8px;}
-.subtitle{text-align:center;font-size:14px;opacity:.9;margin-bottom:20px;}
-select,input,button{
-width:100%;
-padding:12px;
-border-radius:8px;
-border:none;
-margin-bottom:10px;
-font-size:14px;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, Helvetica, sans-serif;}
+body{min-height:100vh;background:#111;color:#fff;}
+.container{position:relative;max-width:480px;margin:30px auto;background: rgba(255,255,255,0.05);border: 2px solid rgba(255,255,255,0.4);padding:25px;border-radius:16px;overflow:hidden;}
+h1{text-align:center;margin-bottom:5px;color:red;font-size:28px;text-shadow:2px 2px 6px rgba(0,0,0,0.7);animation:fadeInDown 1s ease forwards;}
+h1 span{display:block;font-size:16px;color:#fff;text-shadow:1px 1px 4px rgba(0,0,0,0.7);margin-top:5px;}
+.subtitle{text-align:center;font-size:14px;opacity:.9;margin-bottom:20px;animation:fadeIn 1s ease forwards;}
+select,input,button{width:100%;padding:12px;border-radius:8px;border:none;margin-bottom:10px;font-size:14px;opacity:0;transform:translateY(20px);animation:fadeInUp 0.5s forwards;animation-delay:0.5s;}
 input,select{background:#fff;color:#000;}
 button{background:#25D366;color:#fff;font-size:16px;cursor:pointer;}
 button:hover{background:#1eb85b;}
 .alert{color:red;font-size:13px;margin-bottom:10px;display:none;}
-.box{
-border:1.5px solid #fff;
-background:rgba(255,255,255,0.08);
-padding:12px;
-border-radius:12px;
-font-size:13px;
-margin-bottom:12px;
-display:none;
-}
-.preview{
-margin-bottom:12px;
-padding:10px;
-background:rgba(255,255,255,0.08);
-border-radius:10px;
-font-size:13px;
-white-space:pre-line;
-}
+.box, .preview{border:1.5px solid rgba(255,255,255,0.5);background: rgba(255,255,255,0.08);padding:10px;border-radius:10px;font-size:13px;margin-bottom:12px;transition:0.3s;}
+.box:hover, .preview:hover{background: rgba(255,255,255,0.12);border-color: rgba(255,255,255,0.8);}
+.box{display:none;opacity:0;transform:translateY(20px);transition:0.5s;}
+.box.show{display:block;opacity:1;transform:translateY(0);}
+.preview{white-space:pre-line;opacity:0;transform:translateY(20px);transition:0.5s;}
+.preview.show{opacity:1;transform:translateY(0);}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+@keyframes fadeInDown{from{opacity:0;transform:translateY(-20px);}to{opacity:1;transform:translateY(0);}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>SUNTIK SOSMED</h1>
+<h1>SUNTIK SOSMED <span>BY STROMY</span></h1>
 <div class="subtitle">Silakan pilih layanan dan isi data dengan benar</div>
 
 <select id="service" onchange="loadCategory()">
@@ -75,20 +45,25 @@ white-space:pre-line;
 <option value="">Pilih Kategori</option>
 </select>
 
-<!-- Kotak Info Link Follower -->
-<div id="boxFollower" class="box">
-Jika Order Follower itu kan butuh Link nya, nah ini tak kasih tau cara dapat kan nya :  
-<br><br>
-Tiktok = Pergi ke profil, lihat ke pojok atas, lalu cari yang ada tanda bagikan atau panah.  
-<br>
-Instagram = Pergi ke profil, lihat di tengah ada tulisan bagikan profil pencet di situ ada linknya
+<div id="boxFollower"></div>
+
+<div id="boxLinkInfo" class="box">
+Jika ingin mencari link akun ini cara nya :<br><br>
+TIKTOK = Pergi ke profil, Cari tanda bagikan atau panah, Lalu pencet Di situ ada link nya<br>
+INSTAGRAM = Pergi ke profil, Liat ke tengah, Ada tulisan bagikan profil Pencet Di situ ada link nya
 </div>
+
+<select id="viewOption" onchange="loadViewPackage()" style="display:none;">
+<option value="">Pilih Jenis Views</option>
+<option>No Refill</option>
+<option>Refill 30 Days</option>
+</select>
 
 <select id="package" onchange="updatePreview()">
 <option value="">Pilih Paket</option>
 </select>
 
-<input type="text" id="link" placeholder="Masukkan link akun / channel / video" oninput="updatePreview()">
+<input type="text" id="link" placeholder="Masukkan link akun / channel / video,Gunakan link agar cepat" oninput="updatePreview()">
 <div id="linkAlert" class="alert">Isi Link Tautan dari akun Kamu atau Video kamu</div>
 
 <select id="payment" onchange="updatePreview()">
@@ -102,8 +77,7 @@ Instagram = Pergi ke profil, lihat di tengah ada tulisan bagikan profil pencet d
 
 <button onclick="order()">Order via WhatsApp</button>
 
-<!-- Kotak Informasi Paling Bawah -->
-<div id="boxInfo" class="box" style="display:block">
+<div id="boxInfo" class="box show">
 <b>Judul : Informasi</b><br><br>
 NOTE :<br>
 📋SUNTIKAN JUGA TIDAK MENJAMIN 100% PERMANEN<br>
@@ -111,13 +85,13 @@ NOTE :<br>
 <b>FAKTA ALL SUNTIKAN YA BOS</b><br>
 <b>LU PERCAYA SELLER LAIN PERMANEN? YAUDAH SANA AJA</b>
 </div>
-
 </div>
 
 <script>
 const WA = "6285166986948";
 
-const data={
+// Semua daftar paket lengkap
+const data = {
 "TikTok":{
 "Follower":["50 Follower - Rp 2.500","100 Follower - Rp 4.000","200 Follower - Rp 6.000","300 Follower - Rp 7.000","400 Follower - Rp 8.000","500 Follower - Rp 10.000","600 Follower - Rp 11.000","700 Follower - Rp 12.000","800 Follower - Rp 13.000","900 Follower - Rp 14.000","1.000 Follower - Rp 15.000"],
 "Likes":["1000 Likes - Rp 4.000","2000 Likes - Rp 6.000","3000 Likes - Rp 8.000","4000 Likes - Rp 10.000","5000 Likes - Rp 12.000","6000 Likes - Rp 14.000","7000 Likes - Rp 16.000","8000 Likes - Rp 18.000","9000 Likes - Rp 20.000","10000 Likes - Rp 22.000"],
@@ -145,54 +119,79 @@ Telegram:{
 }
 };
 
-const service = document.getElementById("service");
-const category = document.getElementById("category");
-const pack = document.getElementById("package");
-const linkInput = document.getElementById("link");
-const payment = document.getElementById("payment");
-const boxFollower = document.getElementById("boxFollower");
-const preview = document.getElementById("preview");
-const linkAlert = document.getElementById("linkAlert");
-const payAlert = document.getElementById("payAlert");
+// TikTok Views Subkategori
+const tiktokViewsSub = {
+"No Refill":["4.000 View - Rp 2.000","8.000 View - Rp 3.000","12.000 View - Rp 4.000","16.000 View - Rp 5.000","20.000 View - Rp 6.000","24.000 View - Rp 7.000","28.000 View - Rp 8.000","32.000 View - Rp 9.000","36.000 View - Rp 10.000","40.000 View - Rp 11.000"],
+"Refill 30 Days":["2.000 View - Rp 2.000","4.000 View - Rp 3.000","8.000 View - Rp 5.000","12.000 View - Rp 7.000","16.000 View - Rp 9.000","20.000 View - Rp 11.000","24.000 View - Rp 13.000","28.000 View - Rp 14.000","32.000 View - Rp 15.000","36.000 View - Rp 16.000","40.000 View - Rp 17.000"]
+};
+
+// === Sisa fungsi loadCategory, loadPackage, loadViewPackage, updatePreview, order sama seperti sebelumnya ===
+const serviceEl = document.getElementById("service");
+const categoryEl = document.getElementById("category");
+const packEl = document.getElementById("package");
+const linkEl = document.getElementById("link");
+const paymentEl = document.getElementById("payment");
+const boxFollowerEl = document.getElementById("boxFollower");
+const boxLinkInfoEl = document.getElementById("boxLinkInfo");
+const previewEl = document.getElementById("preview");
+const linkAlertEl = document.getElementById("linkAlert");
+const payAlertEl = document.getElementById("payAlert");
+const viewOptionEl = document.getElementById("viewOption");
 
 function loadCategory(){
-category.innerHTML="<option value=''>Pilih Kategori</option>";
-pack.innerHTML="<option value=''>Pilih Paket</option>";
-boxFollower.style.display="none";
-if(!service.value) return;
-Object.keys(data[service.value]).forEach(c=>{
-category.innerHTML+=`<option>${c}</option>`;
+categoryEl.innerHTML="<option value=''>Pilih Kategori</option>";
+packEl.innerHTML="<option value=''>Pilih Paket</option>";
+boxFollowerEl.classList.remove("show");
+boxLinkInfoEl.classList.remove("show");
+viewOptionEl.style.display="none";
+if(!serviceEl.value) return;
+Object.keys(data[serviceEl.value]).forEach(c=>{
+categoryEl.innerHTML+=`<option>${c}</option>`;
 });
 updatePreview();
 }
 
 function loadPackage(){
-pack.innerHTML="<option value=''>Pilih Paket</option>";
-boxFollower.style.display=category.value.includes("Follower")?"block":"none";
-if(!category.value) return;
-data[service.value][category.value].forEach(p=>{
-pack.innerHTML+=`<option>${p}</option>`;
+packEl.innerHTML="<option value=''>Pilih Paket</option>";
+const isFollower = categoryEl.value.includes("Follower");
+boxFollowerEl.classList.toggle("show", isFollower);
+boxLinkInfoEl.classList.toggle("show", isFollower);
+
+if(serviceEl.value=="TikTok" && categoryEl.value=="Views"){
+viewOptionEl.style.display="block";
+viewOptionEl.innerHTML=`<option value="">Pilih Jenis Views</option><option>No Refill</option><option>Refill 30 Days</option>`;
+}else{viewOptionEl.style.display="none";}
+
+if(!categoryEl.value) return;
+data[serviceEl.value][categoryEl.value].forEach(p=>{
+packEl.innerHTML+=`<option>${p}</option>`;
 });
 updatePreview();
 }
 
+function loadViewPackage(){
+packEl.innerHTML="<option value=''>Pilih Paket</option>";
+if(viewOptionEl.value && tiktokViewsSub[viewOptionEl.value]){
+tiktokViewsSub[viewOptionEl.value].forEach(p=>{
+packEl.innerHTML+=`<option>${p}</option>`;
+});
+}
+updatePreview();
+}
+
 function updatePreview(){
-let text=`Layanan : ${service.value || "-"}\nKategori : ${category.value || "-"}\nPaket : ${pack.value || "-"}\nLink : ${linkInput.value || "-"}\nPembayaran : ${payment.value || "-"}`;
-preview.innerText=text;
+let viewText = viewOptionEl.style.display=="block" && viewOptionEl.value ? `\nJenis Views : ${viewOptionEl.value}` : "";
+let text=`Layanan : ${serviceEl.value || "-"}\nKategori : ${categoryEl.value || "-"}\nPaket : ${packEl.value || "-"}${viewText}\nLink : ${linkEl.value || "-"}\nPembayaran : ${paymentEl.value || "-"}`;
+previewEl.innerText=text;
+previewEl.classList.add("show");
 }
 
 function order(){
-linkAlert.style.display = linkInput.value?"none":"block";
-payAlert.style.display = payment.value?"none":"block";
-if(!service.value||!category.value||!pack.value||!linkInput.value||!payment.value) return;
+linkAlertEl.style.display = linkEl.value?"none":"block";
+payAlertEl.style.display = paymentEl.value?"none":"block";
+if(!serviceEl.value||!categoryEl.value||!packEl.value||!linkEl.value||!paymentEl.value) return;
 
-const text=`Min saya mau order
-Layanan : ${service.value}
-Kategori : ${category.value}
-Paket : ${pack.value}
-Link : ${linkInput.value}
-Pembayaran : ${payment.value}`;
-
+const text=`Min saya mau order     Layanan : ${serviceEl.value}     Kategori : ${categoryEl.value}     Paket : ${packEl.value}     Link : ${linkEl.value}     Pembayaran : ${paymentEl.value}`;
 window.open(`https://wa.me/${WA}?text=${encodeURIComponent(text)}`);
 }
 </script>
