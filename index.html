@@ -5,6 +5,44 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricelist Sosial Media</title>
   <style>
+  /* ===== BOX TERANG SAAT AKTIF ===== */
+.box.active-box{
+  border-color:#ffffff;
+  background:rgba(255,255,255,.10);
+  box-shadow:
+    0 0 14px rgba(255,255,255,.25),
+    0 12px 40px rgba(0,0,0,.35);
+}
+
+/* efek glow garis halus biar keliatan jelas */
+.box.active-box::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:20px;
+  pointer-events:none;
+  background:linear-gradient(135deg,
+    rgba(255,255,255,.35),
+    rgba(255,45,45,.18),
+    rgba(56,189,248,.18),
+    rgba(255,255,255,.25)
+  );
+  filter:blur(14px);
+  opacity:.35;
+}
+
+/* ===== BARIS PAKET TERPILIH TERANG ===== */
+.table tr.pick-row.selected td{
+  background:rgba(255,255,255,.14);
+}
+
+.table tr.pick-row.selected{
+  outline:2px solid rgba(255,255,255,.85);
+  outline-offset:-2px;
+  box-shadow:
+    0 0 10px rgba(255,255,255,.25),
+    0 0 22px rgba(56,189,248,.15);
+}
 .brand-top{
   font-size:38px;
   font-weight:900;
@@ -472,7 +510,23 @@
       toast.classList.add("show");
       setTimeout(function(){ toast.classList.remove("show"); }, 1200);
     }
+function updateActiveBoxes(){
+  // matiin semua dulu
+  document.querySelectorAll(".box").forEach(function(b){
+    b.classList.remove("active-box");
+  });
 
+  // nyalain sesuai pilihan
+  if(state.service) document.querySelector(".box1").classList.add("active-box");
+  if(state.category) document.querySelector(".box2").classList.add("active-box");
+  if(needsTypeBox(state.service, state.category)) document.querySelector(".box3").classList.add("active-box");
+
+  // preview box nyala kalau udah ada pilihan minimal layanan+kategori
+  if(state.service && state.category) document.querySelector(".box4").classList.add("active-box");
+
+  // kalau udah pilih paket, biar preview makin “tegas”
+  if(state.pkgAmount) document.querySelector(".box4").classList.add("active-box");
+}
     function labelOfService(id){
       for(var i=0;i<SERVICES.length;i++){ if(SERVICES[i].id===id) return SERVICES[i].label; }
       return id;
@@ -658,6 +712,7 @@ if(state.pkgAmount){
       var admin = "6285166986948";
       var text = buildPreviewText();
       waBtn.href = "https://wa.me/" + admin + "?text=" + encodeURIComponent(text);
+      updateActiveBoxes();
     }
 
     // Render tombol sekali saja
