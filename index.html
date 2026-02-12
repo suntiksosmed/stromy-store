@@ -14,6 +14,34 @@
       --green:#22c55e;
       --green2:#16a34a;
     }
+    .brand{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  line-height:1.05;
+  margin-bottom:2px;
+}
+.brand-top{
+  font-size:38px;
+  font-weight:900;
+  color:#ff2d2d;
+  text-transform:uppercase;
+
+  text-shadow:
+    0 0 10px rgba(255,45,45,.9),
+    0 0 25px rgba(255,45,45,.6),
+    0 0 60px rgba(255,45,45,.4);
+}
+.brand-bottom{
+  font-size:26px;
+  font-weight:800;
+  color:white;
+  letter-spacing:4px;
+
+  text-shadow:
+    0 0 8px rgba(255,255,255,.8),
+    0 0 20px rgba(255,255,255,.4);
+}
     *{box-sizing:border-box}
     body{
       margin:0;
@@ -21,9 +49,11 @@
       color:var(--text);
       min-height:100vh;
       background:
-        radial-gradient(1200px 600px at 20% 15%, rgba(255,255,255,.08), transparent 60%),
-        radial-gradient(900px 500px at 80% 30%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(135deg, var(--bg1) 0%, #14141a 45%, #0f172a 100%);
+  radial-gradient(900px 520px at 18% 16%, rgba(255,45,45,.16), transparent 60%),
+  radial-gradient(900px 520px at 82% 22%, rgba(56,189,248,.14), transparent 60%),
+  radial-gradient(1200px 600px at 20% 15%, rgba(255,255,255,.08), transparent 60%),
+  radial-gradient(900px 500px at 80% 30%, rgba(255,255,255,.06), transparent 60%),
+  linear-gradient(135deg, #07070a 0%, #14141a 45%, #0b1220 100%);
       padding:26px;
     }
 
@@ -35,7 +65,25 @@
       justify-content:space-between;
       gap:14px;
     }
+.center-header{
+  justify-content:center;
+  text-align:center;
+}
+.header-center{
+  max-width:1180px;
+  margin:0 auto 30px auto;
 
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+}
+
+.center-title{
+  align-items:center;
+}
     .title{display:flex;flex-direction:column;gap:6px}
     h1{margin:0;font-size:22px;letter-spacing:.3px}
     .subtitle{margin:0;font-size:13px;color:rgba(255,255,255,.72)}
@@ -226,11 +274,21 @@
   </style>
 </head>
 <body>
-  <div class="header">
-    <div class="title">
-      <h1>📋 Pricelist Sosial Media</h1>
-      <p class="subtitle">Pilih <b>Layanan</b> → <b>Kategori</b> → (opsional) <b>Jenis</b>. Klik paket harga → Copy/WhatsApp hanya paket itu.</p>
+  <body>
+<body>
+
+  <!-- HEADER TENGAH -->
+  <div class="header-center">
+    <div class="brand">
+      <div class="brand-top">SUNTIK ALL SOSMED</div>
+      <div class="brand-bottom">STROMY STORE</div>
     </div>
+
+    <p class="subtitle">
+      Pilih <b>Layanan</b> → <b>Kategori</b> → (opsional) <b>Jenis</b>.
+      Klik paket harga → Copy/WhatsApp hanya paket itu.
+    </p>
+  </div>
     <div class="badge">Tema: hitam–putih • Kotak transparan • Border putih</div>
   </div>
 
@@ -533,10 +591,6 @@ for(var i=0;i<entries.length;i++){
           '</tr>';
 }
 
-previewBody.className="";
-previewBody.innerHTML =
-  '<div class="hint" style="margin:0 0 10px 0;">Klik salah satu baris untuk memilih paket.</div>' +
-  '<table class="table"><thead><tr><th>Paket</th><th></th><th>Harga</th></tr></thead><tbody>' + rows + '</tbody></table>';
 
         previewBody.className="";
         previewBody.innerHTML =
