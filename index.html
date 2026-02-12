@@ -493,12 +493,12 @@
     return info.trim();
   }
 
-  var out = "PIPPP PESANAN\n";
-  out += "Layanan: " + s + "\n";
-  out += "Kategori: " + c + "\n";
+  var out = "*PIPPP PESANAN🛎*\n";
+  out += "*Layanan*: " + s + "\n";
+  out += "*Kategori*: " + c + "\n";
   if(needsTypeBox(state.service, state.category)) out += "Jenis: " + k + "\n";
-  out += "Paket: " + state.pkgAmount + " " + u + " = " + state.pkgPrice + "\n";
-  out += "\nIni Orderannya Min🙏";
+  out += "*Paket*: " + state.pkgAmount + " " + u + " = " + state.pkgPrice + "\n";
+  out += "\nMinnnn Orderrr👻";
   return out.trim();
 }
 
