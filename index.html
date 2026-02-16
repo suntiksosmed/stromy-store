@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+  <script>
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault(); // mencegah klik kanan
+});
+
+document.addEventListener('selectstart', function(e) {
+    e.preventDefault(); // mencegah seleksi teks manual
+});
+</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pricelist Sosial Media</title>
   <style>
+  body {
+  user-select: none; /* nonaktifkan seleksi di seluruh halaman */
+}
+
+.copy-allowed {
+  user-select: text; /* aktifkan seleksi di area tertentu */
+}
   /* ===== BOX TERANG SAAT AKTIF ===== */
 .box.active-box{
   border-color:#ffffff;
@@ -1080,6 +1096,13 @@ promoList.addEventListener("click", function(e){
 
     // INIT
     renderAll();
+  </script>
+<body>
+  ...
+  <script>
+    document.addEventListener('dragstart', function(e) {
+      e.preventDefault();
+    });
   </script>
 </body>
 </html>
