@@ -345,6 +345,47 @@
     .toast.show{opacity:1}
 
     .hint{font-size:12px;color:rgba(255,255,255,.65);line-height:1.4}
+    /* ===== TOMBOL PROMO ===== */
+.btn-promo{
+  margin-top:14px;
+  width:100%;
+  background:linear-gradient(180deg,#22c55e,#16a34a);
+  border:1px solid rgba(34,197,94,.8);
+  color:white;
+  font-weight:600;
+  box-shadow:0 0 12px rgba(34,197,94,.5);
+}
+
+.btn-promo:hover{
+  transform:translateY(-1px);
+  box-shadow:0 0 18px rgba(34,197,94,.7);
+}
+
+/* ===== LIST PROMO ===== */
+.promo-list{
+  margin-top:12px;
+  display:none;
+}
+
+.promo-item{
+  cursor:pointer;
+  padding:10px;
+  border-radius:12px;
+  margin-bottom:8px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.25);
+  transition:.2s;
+}
+
+.promo-item:hover{
+  background:rgba(34,197,94,.15);
+  border-color:#22c55e;
+}
+.btn-disabled{
+  opacity: 0.5;
+  filter: grayscale(100%);
+  cursor: not-allowed !important;
+}
   </style>
 </head>
 <body>
@@ -368,6 +409,11 @@
     <div class="box box1">
       <h2>Layanan <small>(klik salah satu)</small></h2>
       <div id="serviceChips" class="chips"></div>
+      <button class="btn btn-promo" id="promoBtn" type="button">
+      🎁 PROMO KOSONG!!
+      </button>
+
+      <div id="promoList" class="promo-list"></div>
       <p class="hint" style="margin:12px 0 0 0;">Tersedia: TikTok, WhatsApp, Instagram, Telegram, YouTube.</p>
     </div>
 
@@ -498,6 +544,14 @@
         { key:"Telegram Reffil 30 Days", label:"REFFIL 30 DAYS" }
       ]}
     };
+// ==== DATA PROMO ====
+var PROMO_LIST = [
+  {
+    id:"promo1",
+    text:"SILAHKAN KLIK INI UNTUK KEMBALI",
+    limit:5000 // 👈 BATAS MAKSIMAL
+  },
+];
 
     // ==== STATE ====
     var state = { service:null, category:null, typeKey:null, pkgAmount:null, pkgPrice:null };
@@ -512,6 +566,13 @@
     var copyBtn = document.getElementById("copyBtn");
     var waBtn = document.getElementById("waBtn");
     var toast = document.getElementById("toast");
+    var promoBtn = document.getElementById("promoBtn");
+    // ===== STATUS PROMO HARI INI =====
+    var PROMO_ACTIVE = false; 
+    // ubah ke false kalau promo mau dimatikan,ubahke true untuk nyalakan
+    var promoList = document.getElementById("promoList");
+    var promoMode = false;
+    var promoUsed = {};
 
     function showToast(text){
       toast.textContent = text;
@@ -576,6 +637,9 @@ function updateActiveBoxes(){
 
     // Copy/WA HANYA paket terpilih
     function buildPreviewText(){
+if(state.pkgAmount === "PROMO"){
+  return "*🔥MINNN BUY PROMO🔥*\n\n" + state.pkgPrice;
+}
   var s = state.service ? labelOfService(state.service) : "-";
   var c = state.category ? labelOfCategory(state.category) : "-";
   var k = getSelectedKey() || "-";
@@ -729,27 +793,179 @@ renderButtons(categoryChips, CATEGORIES);
 renderTypeBox();
 updatePreview();
 
+function renderPromo(){
+  promoList.innerHTML = "";
+
+  for(var i=0;i<PROMO_LIST.length;i++){
+
+    var promo = PROMO_LIST[i];
+
+    if(!promoUsed[promo.id]){
+      promoUsed[promo.id] = 0;
+    checkPromoAvailability();
+    }
+    
+function renderPromo(){
+  promoList.innerHTML = "";
+
+  for(var i=0;i<PROMO_LIST.length;i++){
+
+    var promo = PROMO_LIST[i];
+
+    if(!promoUsed[promo.id]){
+      promoUsed[promo.id] = 0;
+    }
+
+    var sisa = promo.limit - promoUsed[promo.id];
+
+    var div = document.createElement("div");
+    div.className = "promo-item";
+
+    if(sisa <= 0){
+      div.style.opacity = "0.4";
+      div.style.cursor = "not-allowed";
+      div.textContent = promo.text + " (HABIS ❌)";
+    }else{
+      div.dataset.id = promo.id;
+      div.dataset.text = promo.text;
+      div.textContent = promo.text + " (Sisa " + sisa + ")";
+    }
+
+    promoList.appendChild(div);
+  }
+}
+
+/* ====== TEMPEL DI SINI ====== */
+function checkPromoAvailability(){
+
+  var disablePromo = false;
+  var label = "🎁 PROMO KOSONG";
+
+  if(!PROMO_ACTIVE){
+    disablePromo = true;
+    label = "🎁 PROMO TUTUP";
+  }else{
+
+    var allHabis = true;
+
+    for(var i=0;i<PROMO_LIST.length;i++){
+      var promo = PROMO_LIST[i];
+
+      if(!promoUsed[promo.id]){
+        promoUsed[promo.id] = 0;
+      }
+
+      var sisa = promo.limit - promoUsed[promo.id];
+
+      if(sisa > 0){
+        allHabis = false;
+        break;
+      }
+    }
+
+    if(allHabis){
+      disablePromo = true;
+      label = "🎁 PROMO HABIS";
+    }
+  }
+
+  if(disablePromo){
+    promoBtn.disabled = true;
+    promoBtn.classList.add("btn-disabled");
+  }else{
+    promoBtn.disabled = false;
+    promoBtn.classList.remove("btn-disabled");
+  }
+
+  promoBtn.innerHTML = label;
+}
+    var sisa = promo.limit - promoUsed[promo.id];
+
+    var div = document.createElement("div");
+    div.className = "promo-item";
+
+    if(sisa <= 0){
+      div.style.opacity = "0.4";
+      div.style.cursor = "not-allowed";
+      div.textContent = promo.text + " (HABIS ❌)";
+    }else{
+      div.dataset.id = promo.id;
+      div.dataset.text = promo.text;
+      div.textContent = promo.text + " (Sisa " + sisa + ")";
+    }
+
+    promoList.appendChild(div);
+  }
+  checkPromoAvailability();
+}
+
+function checkPromoAvailability(){
+
+  // Kalau promo dimatikan manual
+  if(!PROMO_ACTIVE){
+    promoBtn.disabled = true;
+    promoBtn.style.opacity = "0.5";
+    promoBtn.style.cursor = "not-allowed";
+    promoBtn.innerHTML = "🎁 PROMO TUTUP";
+    return;
+  }
+
+  var allHabis = true;
+
+  for(var i=0;i<PROMO_LIST.length;i++){
+    var promo = PROMO_LIST[i];
+
+    if(!promoUsed[promo.id]){
+      promoUsed[promo.id] = 0;
+    }
+
+    var sisa = promo.limit - promoUsed[promo.id];
+
+    if(sisa > 0){
+      allHabis = false;
+      break;
+    }
+  }
+
+  if(allHabis){
+    promoBtn.disabled = true;
+    promoBtn.style.opacity = "0.5";
+    promoBtn.style.cursor = "not-allowed";
+    promoBtn.innerHTML = "🎁 PROMO HABIS";
+  }else{
+    promoBtn.disabled = false;
+    promoBtn.style.opacity = "1";
+    promoBtn.style.cursor = "pointer";
+    promoBtn.innerHTML = "🎁 PROMO KOSONG";
+  }
+}
+
     // ==== EVENT: layanan/kategori/jenis pakai delegation ====
-    serviceChips.addEventListener("click", function(e){
+serviceChips.addEventListener("click", function(e){
   var btn = e.target.closest("button.chip");
   if(!btn) return;
 
+  // RESET TOTAL
   state.service = btn.dataset.id;
-
-  // reset pilihan lain
   state.category = null;
   state.typeKey = null;
   state.pkgAmount = null;
   state.pkgPrice = null;
 
-  // aktifkan chip tanpa render ulang semua
+  // Reset tampilan kategori & jenis
+  setActive(categoryChips, null);
+  setActive(typeChips, null);
+  typeBox.style.display = "none";
+
+  // Aktifkan hanya layanan
   setActive(serviceChips, state.service);
 
-  // update preview saja (lebih ringan)
   updatePreview();
 });
 
-    categoryChips.addEventListener("click", function(e){
+categoryChips.addEventListener("click", function(e){
+  if(!state.service) return; // ❌ kalau belum pilih layanan, jangan aktif
+
   var btn = e.target.closest("button.chip");
   if(!btn) return;
 
@@ -765,6 +981,8 @@ updatePreview();
 });
 
     typeChips.addEventListener("click", function(e){
+  if(!state.category) return; // ❌ kalau belum pilih kategori
+
   var btn = e.target.closest("button.chip");
   if(!btn) return;
 
@@ -786,6 +1004,52 @@ previewBody.addEventListener("click", function(e){
 
   showToast("Paket dipilih ✅");
   updatePreview();
+});
+
+promoBtn.addEventListener("click", function(){
+
+  promoMode = !promoMode;
+
+  if(promoMode){
+    document.querySelector(".box2").style.display="none";
+    document.querySelector(".box3").style.display="none";
+    document.querySelector(".box4").style.display="none";
+
+    promoList.style.display="block";
+    renderPromo();
+    checkPromoAvailability();
+  }else{
+    document.querySelector(".box2").style.display="block";
+    document.querySelector(".box3").style.display="block";
+    document.querySelector(".box4").style.display="block";
+
+    promoList.style.display="none";
+  }
+
+});
+promoList.addEventListener("click", function(e){
+  var item = e.target.closest(".promo-item");
+  if(!item) return;
+  if(!item.dataset.id) return; // kalau habis tidak bisa diklik
+
+  var id = item.dataset.id;
+
+  promoUsed[id]++;
+
+  state.pkgAmount = "PROMO";
+  state.pkgPrice = item.dataset.text;
+
+  document.querySelector(".box2").style.display="block";
+  document.querySelector(".box3").style.display="block";
+  document.querySelector(".box4").style.display="block";
+
+  promoList.style.display="none";
+  promoMode = false;
+
+  previewBody.className="";
+  previewBody.innerHTML = "<b>🔥 PROMO DIPILIH:</b><br><br>"+ item.dataset.text;
+
+  showToast("Promo dipilih ✅");
 });
 
     // ==== Copy (1x aja) ====
